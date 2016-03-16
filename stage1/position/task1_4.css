@@ -1,0 +1,40 @@
+body{
+	width: 100%;
+	margin: 0px;
+}
+.wrapper{
+	/*position: relative;
+	height: 100%;*/
+}
+.rectangle{
+	position: absolute;
+	left:50%;
+	top:50%;
+	background-color: #ccc;
+	width: 400px;
+	height: 200px;
+/*	margin-left: -200px;
+	margin-top: -100px;*/
+	 -ms-transform: translate(-50%,-50%);
+        -moz-transform: translate(-50%,-50%);
+        -o-transform: translate(-50%,-50%);
+        transform: translate(-50%,-50%); 
+        overflow: hidden;
+}
+
+.circle_left{
+	background-color: #fc0;
+	width: 50px;
+	height: 50px;
+	border-radius: 0 0 100px 0 ;
+}
+
+.circle_right{
+	background-color: #fc0;
+	width: 50px;
+	height: 50px;
+	border-radius: 100px 0 0 0 ;
+	position: absolute;
+	top:150px;
+	right: 0px;
+}
