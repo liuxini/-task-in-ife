@@ -1,14 +1,13 @@
 body{
 	background-color: #F5F5F5;
 	width: 100%;
+	min-width: 280px;
 	margin: 0;
 }
 header{
 	background-color: #000000;	
-	min-width: 240px;
-	height: 80px;
 }
-header .main{
+.main{
 	width: 90%;
 	height: 80px;
 	position: relative;
@@ -17,7 +16,7 @@ header .main{
 header img{
 	position: absolute;
 	left:0;
-	height: 50px;
+	height: 60px;
 	bottom: 10px;
 }
 .menu{
@@ -38,6 +37,25 @@ ul{
 .menu li a{
 	color: #ffffff;
 	text-decoration: none;
+}
+@media screen and (max-width: 640px){
+	.main{
+		text-align: center;
+		height:110px;
+	}
+	.main img{
+		position: relative; 
+     	bottom: auto; 
+	}
+	.main .menu{
+		display:inline-block;
+		position:relative;
+		margin: 0 auto;
+		margin-top: -30px;
+	}
+	.main li{
+		font-size: 12px;
+	}
 }
 .wrapper{
 	background-color: #ffffff;
@@ -61,10 +79,12 @@ article li{
 	border: 1px solid #000000;
 	width: 150px;
 	height: 140px;
-	margin: 40px;
+	margin-left: 1%;
+	margin-top: 2%;
+	display:inline-block;
 }
 li p{
-	font-size: 6px;
+	font-size: 9px;
 	text-align: center;
 }
 li img{
