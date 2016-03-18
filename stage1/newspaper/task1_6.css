@@ -1,7 +1,11 @@
 body{
+	background-color: #D1D1D1;
+}
+.wrapper-out{
 	width: 980px;
 	height: 1386px;
 	margin: 0 auto;
+	background-color: #ffffff;
 }
 header{
 	width: 100%;
@@ -29,7 +33,7 @@ header{
 	margin-top:35px;
 }
 .second{
-	width: 892px;height: ;
+	width: 892px;
 	margin:33px 44px ;
 	position: relative;
 
@@ -120,8 +124,9 @@ aside{
 	font-family: 微软雅黑;
 }
 .third{
-	margin-top: 20px;
-	padding-top: 20px;
+	padding-top: 10px;
+	margin:0 33px 0 40px;
+	position:relative;
 }
 .title{
 	padding-top: 10px;
@@ -148,6 +153,7 @@ aside{
 .big .seven{
 	font-size: 116px;color: #75b86b;
 	font-style: italic;
+	font-weight: bold
 }
 .middle{
 	color: #cc8091;
@@ -168,7 +174,7 @@ aside{
 	top:285px;left: 90px;
 }
 .article{
-	width: 415px;height: 800px;
+	width: 415px;height: 700px;
 }
 .article .title {
 	width: 415px;
@@ -194,27 +200,73 @@ aside{
 .contents{
 	/*overflow: hidden;*/
 	clear: both;
+	padding-top:10px;
 }
 .contents p:first-child:first-letter{
 	font-size: 70px;
 	color: #f5e327;
 	font-family: 微软雅黑;
 	float: left;
+	padding-bottom: 4px;
 	padding-right: 5px;
+	padding:5px 5px 5px 0;
 }
 article img{
 	float: right;
-	width: 140px;
-	height:305px;
-	
+	width: 160px;
+	height:265px;
+	margin: 8px 5px 0 8px;
+	/*margin-left: 8px;*/
 }
 .contents p{
 	font-size: 12px;
 	color: #767777;
-	margin: 5px 0 ;
+	margin: 0 ;
 }
-
-
+.col2{
+	position:absolute;
+	width:458px;
+	top:0; right:0;
+	margin-top: 72px;
+}
+.col2 .sidepic img {
+	width:458px;height:275px;
+}
+.shadow{
+	width:458px;height:61px;
+	position:absolute;
+	top:213px;
+	font-family:"Microsoft YaHei";
+	
+}
+.shadowinside{
+	width:458px;height:61px;
+	background: rgb(0,0,0); /*The Fallback color*/
+	opacity: 0.2;
+	filter:alpha(opacity=0.2);
+	 -ms-filter:"progid:DXImageTransform.Microsoft.Alpha(Opacity=20)";
+}
+.shadow .white{
+	position:absolute;
+	top:0;left:30px;
+	height:38px;
+	border-left: 3px solid #72b16a;
+	font-size: 26px;
+	color:#ffffff;
+	padding:0 5px 0 10px;
+	margin:10px;
+}
+.shadow .green{
+	position:absolute;
+	top:25px;left:180px;
+	font-size: 12px;color:#72b16a;
+	font-style: italic;
+	letter-spacing: 140%;
+}
+.catalog{
+	width:458px;height:318px;
+	background-color: #ccf2ab;
+}
 
 .foot_main{
 	width: 892px;height: 61px;
