@@ -1,0 +1,47 @@
+body{
+	width: 100%;margin: 0;
+}
+li{
+	display: inline-block;
+}
+a{ text-decoration: none;}
+.header-main{
+	width: 90%;
+	font-family: "SimHei";
+	margin: 0 auto;
+	height: 60px;
+}
+.logo{
+	float: left;
+	font-size: 22px;
+}
+.logo img{
+	width: 40px;height: 40px;
+	margin: 10px;
+}
+.logo span{
+	float: right;
+	margin-top: 22px;
+	color: #2F4F4F;
+}
+.header-main ul{
+	float: right;
+}
+.header-main li{
+	height: 31px;
+	font-size: 16px;
+	padding:5px 20px; 
+	color:  #2F4F4F;
+}
+.header-main a { color:#2F4F4F; }
+.active { border-bottom: 2px solid #eb1935; }
+.active a { color: #eb1935; }
+.login{
+	float: right;
+	margin: 20px 10px 0 10px;
+}
+.login span { color: #eb1935; }
+.banner{
+	background: url("images/banner1.png") no-repeat;
+	width: 100%;height:690px;
+}
