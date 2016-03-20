@@ -213,7 +213,7 @@ a { text-decoration: none;}
 	letter-spacing: 25px;
 	font-size: 20px;
 }
-.sixth { width: 100%;height: 600px;}
+.sixth { width: 100%;height: 570px;}
 .left_content{
 	position: relative;
 	width: 67%;height: 100%;
@@ -271,7 +271,7 @@ a { text-decoration: none;}
 	background: url("images/point.png") no-repeat;
 	width: 12px; height: 12px;
 }
-.seventh{width: 100%;height: 600px;	}
+.seventh{width: 100%;height: 520px;	}
 .left-content{
 	float: left;
 	position: relative;
@@ -280,16 +280,29 @@ a { text-decoration: none;}
 	background-color: #e74f4d;
 	color: #ffffff;
 }
-.seven-left{
+.left_content:after{
+	content: " ";
+	width: 0;height: 0;
+	float: right;margin-top:260px;
+	border-right: 25px solid #ffffff;
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
+}
+.seven-left,.center{
 	position: absolute;
 	top: 50%;left: 50%;
 	-webkit-transform: translate(-50%,-50%);
       -ms-transform: translate(-50%,-50%);
           transform: translate(-50%,-50%);
 }
-.seven-left p{
+.seven-left p,.center p{
 	font-size: 20px;
 	margin:10px;
+}
+.seven-left hr,.center hr{
+	margin: 20px auto;
+	background: #ffffff;
+	width: 36px;
 }
 .seven-left .button{
 	border: 1px solid #ffffff;
@@ -301,10 +314,160 @@ a { text-decoration: none;}
 .right-content{
 	float: right;
 	width: 33%;height: 100%;
+	background: url("images/new2.png") no-repeat;
 	background-size: cover;
+	margin-left: 33%;
+	margin-top: -10%;
+}
+.right-content:after{
+	content: " ";
+	width: 0;height: 0;
+	float: left;margin-top: 250px;
+	border-left: 25px solid #ffffff;
+	border-top: 15px solid transparent;
+	border-bottom: 15px solid transparent;
 }
 .center-content{
 	width: 34%;height: 100%;
-	overflow: hidden;
+	margin-left: 33%;
+	text-align: center;
 	position: relative;
+}
+.center .button{
+	border: 1px solid #e74f4d;
+	color:#e74f4d;
+	font-size: 20px;
+	width:250px;
+	font-family: "SimHei";
+	background: #ffffff;
+	padding: 7px 0;	
+}
+.eighth{
+	width: 100%;
+	position: relative;
+	text-align: center;
+	overflow: hidden;
+}
+.slogan{
+	font-size: 24px;
+	margin: 10px auto;
+	margin-top: 8%;
+}
+.eighth hr{
+	width: 40px;
+	border:1px solid #e74f4d;
+}
+.more_eighth{
+	font-size: 12px;
+	color: #777;width: 30%;
+	margin: 10px auto;
+}
+.inner{
+	position: relative;
+	width: 90%;
+	margin: 40px auto;
+}
+.detail{
+	width: 35%;height: 100%;
+	text-align: left;
+}
+.detail h6{
+	font-size: 14px;
+	margin: 16px 0;
+}
+.detail li { width: 100%;}
+.detail p{
+	font-size: 12px;
+	color: #aaaaaa;
+}
+.detail .more{
+	font-size: 12px;
+	float: right;
+	color: #aaaaaa;
+	background: url("images/unfold.png") 0 8px no-repeat;
+	padding-left: 15px;
+}
+.form{
+	float: right;
+	margin-top: 25px;
+	width: 64%;height: 100%;
+}
+.input{
+	display: inline-block;
+	margin: 0 0 20px 20px;
+	width:310px;height:40px;
+	background-color: #ededee;
+}
+label{
+	font-size: 12px;
+	float: left;
+	padding-left: 10px;
+	line-height: 40px;
+}
+input{ 
+	width:220px;height: 90%;
+	border: 0;
+	background-color: transparent;
+}
+textarea{
+	background: #ededee;
+	border: 0;
+	margin-left: 20px;
+	padding: 5px;
+	width:635px;height: 90px;
+}
+#button{
+	background: #ededee;
+	margin: 10px 0 0 20px;
+	border: 0;line-height: 40px;
+	width:644px;height: 40px;
+	font-family: "Microsoft YaHei";
+}
+.contact-us{
+	width: 100%;height: 400px;
+	background-color: #32353e;
+	color: #ffffff;
+	position: relative;
+	margin-top: 110px;
+	text-align: center;
+}
+.contact{
+	position: absolute;
+	top: 50%;left: 50%;
+	-webkit-transform: translate(-50%,-50%);
+      -ms-transform: translate(-50%,-50%);
+          transform: translate(-50%,-50%);
+}
+.contact h5{
+	font: 1.75em SimHei;
+	margin-bottom: 20px;
+}
+.contact p{font: 1em SimHei; }
+.contact li{ margin-right: 20px;}
+.contact-form input{
+	padding-left:10px; 
+	width: 350px;height: 40px;
+	background-color: #ffffff;
+}
+.contact-button{
+	background-color:#6f7178; 
+	color:#ffffff;border: 0;
+	padding: 0;
+	margin-left: -5px;
+	width:100px;height: 43px;
+}
+
+footer{
+	width: 100%;height: 58px;
+	background-color: #303039;
+	color: #ffffff;
+	font-size:.5em;
+}
+.footer-left{ 
+	float: left;
+	margin: 20px 0 0 80px; 
+}
+.footer-right{
+	float: right;
+	margin: 20px 60px 0 0 ; 
 }
