@@ -1,0 +1,74 @@
+.wrapper{
+	width: 100%;
+	font: 14px "Microsoft Yahei";
+}
+table{ margin: 0 auto;}
+thead{
+	background-color: #000000;
+	color: #ffffff;
+}
+tbody tr:nth-child(2n){ background-color: #ccc; }
+tbody tr:nth-of-type(1) { color: red;}
+tbody tr:nth-of-type(2){ color: red; }
+tbody tr:nth-of-type(3){ color: red; }
+.input{ margin: 40px auto; width: 200px; }
+input{
+	transition:width 2s;
+	width: 200px;height: 25px;
+}
+input:focus{ width: 250px;height: 25px; }
+ul{ list-style: none}
+li{
+	width: 100%;height: 100%;
+	position: absolute;
+	left: 0;top:0;
+	transform:translateX(0);
+	z-index: 1; 
+}
+.banner{
+	width: 300px;height: 100px;
+	position: relative;
+}
+.first{background-color: red; }
+.second{background-color: green; }
+.third{ background-color: blue;}
+a{
+	text-decoration: none;
+	color: #ffffff;
+}
+.control{
+	position: relative;
+	top:-40px;left:200px ;
+	z-index: 2;
+}
+.control-item{
+	background-color: rgba(255,255,255,0.5);
+	width: 30px;height: 30px;
+	text-align: center;
+	line-height: 30px;
+	margin-right: 10px;
+	display: inline-block;
+}
+@keyframes myfirst{
+	 0% {left: -100%; }
+  100% { left: 0%;}
+}
+@-moz-keyframes myfirst {
+	 0% {left: -100%; }
+  100% { left: 0%;}
+}
+@-webkid-keyframes myfirst{
+	 0% {left: -100%; }
+  100% { left: 0%;}
+}
+@-o-keyframes myfirst{
+	 0% {left: -100%; }
+  100% { left: 0%;}
+}
+.banner li:target{
+	z-index: 2;
+	animation:myfirst 1s linear;
+	-moz-animation: myfirst 1s linear;	
+	-webkit-animation: myfirst 1s linear;	
+	-o-animation: myfirst 1s linear;	
+}
