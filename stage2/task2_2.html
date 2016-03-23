@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>IFE JavaScript Task 01</title>
+  </head>
+<body>
+<style type="text/css">
+    .wrapper{
+    margin: 0 auto;
+    width: 40%;
+   }
+   td{text-align: center;}
+</style>
+  <div class="wrapper">
+  <table border="1">
+    <colgroup width="100" ></colgroup>
+    <colgroup width="100"></colgroup>
+    <thead>
+      <tr>
+        <th>城市</th>
+        <th>污染指数</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>北京</td>
+        <td>90</td>
+      </tr>
+      <tr>
+        <td>上海</td>
+        <td>50</td>
+      </tr>
+       <tr>
+        <td>福州</td>
+        <td>100</td>
+      </tr>
+      <tr>
+        <td>广州</td>
+        <td>50</td>
+      </tr>
+      <tr>
+        <td>成都</td>
+        <td>90</td>
+      </tr>
+       <tr>
+        <td>西安</td>
+        <td>100</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3>污染城市列表</h3>
+  <ul id="aqi-list">
+<!--   
+    <li>第一名：福州（样例），10</li>
+  	<li>第二名：福州（样例），10</li> -->
+  </ul>
+</div>
+<script type="text/javascript">
+
+var aqiData = [
+  ["北京", 90],
+  ["上海", 50],
+  ["福州", 10],
+  ["广州", 50],
+  ["成都", 90],
+  ["西安", 100]
+];
+
+(function () {
+  /*
+  在注释下方编写代码
+  遍历读取aqiData中各个城市的数据
+  将空气质量指数大于60的城市显示到aqi-list的列表中
+  */
+  var temp=[]; 
+  var list = document.getElementById('aqi-list');
+  for (var i = 0; i < aqiData.length; i++) {
+    if(aqiData[i][1]>=60){
+      temp.push(aqiData[i]);
+    }
+  };
+    temp.sort(function(one,two){
+      return two[1]-one[1];
+    })
+    var result ='';
+    for (var i = 0; i < temp.length; i++) {
+       result += '<li>第' + (i + 1) + '名：' + temp[i][0] + ' ' + temp[i][1] + '</li>';
+    };
+    list.innerHTML =result;
+})();
+
+</script>
+</body>
+</html>
