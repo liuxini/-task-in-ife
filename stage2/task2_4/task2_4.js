@@ -16,7 +16,7 @@ function addAqiData() {
 var cityinput = document.getElementById('aqi-city-input');
 var valueinput = document.getElementById('aqi-value-input');
 var city = cityinput.value.trim(); 
- var aqi = aqiinput.value.trim(); 
+ var aqi = valueinput.value.trim(); 
 
    if(!city.match(/^[A-Za-z\u4E00-\u9FA5]+$/)){ 
          alert("城市名必须为中英文字符！") 
@@ -74,7 +74,7 @@ function addBtnHandle() {
  * 点击各个删除按钮的时候的处理逻辑
  * 获取哪个城市数据被删，删除数据，更新表格显示
  */
-function delBtnHandle() {
+function delBtnHandle(city) {
   // do sth.
   delete aqiData[city];
   renderAqiList();
@@ -84,10 +84,16 @@ function init() {
 
   // 在这下面给add-btn绑定一个点击事件，点击时触发addBtnHandle函数
   var btn = document.getElementById('add-btn');
-  btn.addEventLisener('click',addBtnHandle,false);
+  if(btn.addEventListener){
+    btn.addEventListener("click", addBtnHandle,false);
+  }else{
+    btn.attachEvent("onclick",addBtnHandle);
+  }
 
   // 想办法给aqi-table中的所有删除按钮绑定事件，触发delBtnHandle函数
-
+   document.getElementById("aqi-table").addEventListener("click", function(event){
+        if(event.target.nodeName.toLowerCase() === 'button') delBtnHandle.call(null, event.target.dataset.city);
+    })
 }
 
 init();
