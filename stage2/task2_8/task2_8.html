@@ -1,0 +1,41 @@
+﻿<head lang="zh-CN" >
+	<meta http-equiv="charset" content="UTF-8">
+	<title>task2_8</title>
+	<style type="text/css">
+	button,input{ vertical-align: text-bottom; }
+	textarea{ width: 200px;height: 60px;}
+	ul{
+		list-style: none;
+		display: flex;
+		display: -webkit-flex;
+		flex-wrap:wrap;
+		-webkit-flex-wrap:wrap;
+		justify-content:center;
+		-webkit-align-content:center;
+	}
+	li{ 
+		background-color: red;
+		color: #fff;
+		width: 60px;height: 60px;
+		text-align: center;
+		margin: 10px;
+		line-height: 60px;
+	}
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<textarea name="content"></textarea>
+		<button type="button" name="leftin">左侧入</button>
+		<button type="button" name="rightin">右侧入</button>
+		<button type="button" name="leftout">左侧出</button>
+		<button type="button" name="rightout">右侧出</button>
+		<input type="search" name="search"></input>
+		<button type="button" name="find">查找</button>
+		
+		<ul class="queue">
+		</ul>
+		<script src="task2_8.js"></script>
+	</div>
+</body>
+</html>
