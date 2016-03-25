@@ -1,4 +1,7 @@
 var queue=[];
+var aniQue = delay(function(){}, 0);
+var inAnimation = false;
+
 function addEvent( type, element, fun){
 	if(element.addEventListener){
 		addEvent = function(type, element, fun){
@@ -13,6 +16,31 @@ function addEvent( type, element, fun){
 		}
 	return addEvent(type,element,fun);
 }
+
+function delay(fn, t) {
+      var queue = [], self, timer;
+      function schedule(fn, t) {
+        timer = setTimeout(function() {
+          timer = null;
+          fn();
+          if (queue.length) {
+            var next = queue.shift();
+            schedule(next.fn, next.t);
+          }
+        }, t);
+      }
+      self = {
+        delay: function(fn, t) {
+          if (queue.length || timer) {
+            queue.push({fn: fn, t: t});
+          } else {
+            schedule(fn, t);
+          }
+          return self;
+        }
+      }
+      return self.delay(fn, t);
+    }
 
 function render(){
 	var list = document.querySelector("ul");
@@ -31,7 +59,7 @@ function buildRandom(){
 
 function getinput(){
 	var number = document.querySelector("input");
-	if( number.value.match(/[^0-9]/)){
+	if( number.value===""||number.value.match(/[^0-9]/)){
 		alert("请输入数字");
 		return ;
 	}else{
@@ -41,6 +69,7 @@ function getinput(){
 	}
 }
 function leftin(){
+	if( getinput()===undefined ) return;
 	if( queue.length==60){
 		alert("队列数量已满");
 		alert(getinput());
@@ -50,6 +79,7 @@ function leftin(){
 	}
 }
 function rightin(){
+	if( getinput()===undefined ) return;
 	if( queue.length==60){
 		alert("队列数量已满");
 		alert(getinput());
@@ -76,45 +106,71 @@ function rightout(){
 	}
 }
 
-function renderSortRange(start,end){
-	for(var i=start;i<=end;i++){
-		document.querySelectorAll("li")[i].className = "green";
-	}
+function renderSortRange(start,end,index){
+	if( index==0){
+		aniQue.delay(function() {
+			for(var i=start;i<=end;i++){
+				document.querySelectorAll("li")[i].className = "green";
+			}
+		},0);
+	}else{
+		aniQue.delay(function() {
+			for(var i=start;i<=end;i++){
+				document.querySelectorAll("li")[i].className = "yellow";
+			}
+		},0);
+	}	
 }
 
-function renderSort(index,height){
-	var i=index;
-	document.querySelectorAll("li")[i].className = "blue";
+function renderSort(index,value){
+	aniQue.delay(function() {
+        document.querySelectorAll("li")[index].className='blue';
+      }, 0);
+      if (value != null) {
+        aniQue.delay(function() {
+          document.querySelectorAll("li")[index].style.height = value + 'px';
+          document.querySelectorAll("li")[index].title = value.toString();
+        }, 0);
+      }
+      aniQue.delay(function() {
+        document.querySelectorAll("li")[index].className = 'red';
+      }, 100);
 	
 }
 
 function mergesort(first,last){
 	if( first<last){
 		var middle=parseInt((first+last)/2);
-		render();
-		renderSortRange(first,last);
 		mergesort(first,middle);
 		mergesort(middle+1,last);
 		mergearray( first,middle,last);
-
 	}
 }
 
 function mergearray(first,middle,last){
+	renderSortRange(first,middle,0);
+	renderSortRange(middle+1,last,1);
 	var i=first,j=middle+1;
 	var m=middle, n=last,k=0;
 	var temp=[];
 
-	renderSortRange(first,last);
 	while( i<=m && j<=n ){
-		renderSort(j,queue[j]);
+		renderSort(i);
+		renderSort(j);
 		if(queue[i]<=queue[j]) temp[k++] = queue[i++];
 		else temp[k++] = queue[j++];		
 	}
-	while( i<=m) temp[k++] = queue[i++];
-	while( j<=n) temp[k++] = queue[j++];
+	while( i<=m) {
+		temp[k++] = queue[i++];
+		renderSort(i,queue[i]);
+	}
+	while( j<=n) {
+		renderSort(j,queue[j]);
+		temp[k++] = queue[j++];
+	}
 	for( i=0;i<k;i++){
 		queue[first+i] = temp[i];
+		renderSort(first+i,queue[first+i]);
 	}
 }
 
@@ -124,8 +180,11 @@ function Mergesort(){
 	if( length ===0){
 		alert("队列为空，无法排序");
 	}else{
+		aniQue.delay(function(){
+        	inAnimation = false;
+      		}, 0);
 		mergesort(0,length-1);
-		render();
+		// render();
 	}
 
 }
