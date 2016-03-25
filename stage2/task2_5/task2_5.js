@@ -77,7 +77,7 @@ function getTimeNow(){
   var time = document.getElementsByName("gra-time");
   for (var i = 0; i < time.length; i++) {
     if(time[i].checked){
-        return time[i];        
+        return time[i].value;        
     }
   };
 }
@@ -118,7 +118,7 @@ function citySelectChange() {
  */
 function initGraTimeForm() {
  var types = document.getElementsByName("gra-time");
- // types.addEventListener("click",graTimeChange,false);
+  // types.addEventListener("click",graTimeChange,false);
  [].forEach.call(types,function(value){ 
              value.addEventListener("click",graTimeChange); 
          }); 
@@ -147,7 +147,6 @@ function initAqiChartData() {
   // 将原始的源数据处理成图表需要的数据格式
   // 处理好的数据存到 chartData 中
   var time = getTimeNow();
-  alert(time);
   var city = document.getElementById("city-select").value;
   pageState["nowSelectCity"] = document.getElementById("city-select").value;
   pageState["nowGraTime"] = time;
@@ -179,11 +178,11 @@ function initAqiChartData() {
       break;
     case "month":
        chartData = {};
-      var count=0,total=0,month=-1,data;
+      var count=0,total=0,month=-1,date;
       for(var nowdate in aqiSourceData[city]){
         date=new Date(nowdate);  
         if( month==-1){
-          month = data.getMonth()+1;
+          month = date.getMonth()+1;
         }else if(date.getMonth()+1!=month){
           chartData[month+"月"]=Math.round(total/count); 
           month = date.getMonth()+1; 
@@ -193,6 +192,7 @@ function initAqiChartData() {
         count++;
         total +=aqiSourceData[city][nowdate];
       }
+    chartData[month+"月"]=Math.round(total/count);
     break;
   }
   renderChart();
