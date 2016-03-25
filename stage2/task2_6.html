@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html >
+<head >
+	<meta http-equiv="charset" content="UTF-8">
+	<title>task2_6</title>
+	<style type="text/css">
+	.wrapper{width: 40%;}
+	 .queue{list-style: none}
+	 .in,.out{
+	 	float:right;
+	 	margin-right: 10px;
+	 }
+	 li{
+	 	display: inline-block;
+	 	background-color: red;
+	 	width: 40px;height: 40px;
+	 	margin: 10px;
+	 }
+	</style>
+</head>
+<body>
+	<div class="wrapper">
+		<input type="text" name="number">
+		<div class="in">
+		<button type="button" name="leftin">左侧入</button>
+		<button type="button" name="rightin">右侧入</button>
+		</div>
+		<div class="out">
+		<button type="button" name="leftout">左侧出</button>
+		<button type="button" name="rightout">右侧出</button>
+		</div>
+		<ul class="queue">
+		</ul>
+	</div>
+	<script type="text/javascript">
+		function addEvent( type, element, fun){
+			if(element.addEventListener){
+				addEvent = function(type, element, fun){
+					element.addEventListener(type,fun,false);
+				}
+			}
+			else if( element.attachEvent){
+				addEvent = function(type,element,fun){
+					element.attachEvent('on'+type,fun,false);
+				}
+			}
+			else{
+				addEvent = function(type,element,fun){
+					element['on'+type] =fun;
+				}
+			}
+			return addEvent(type,element,fun);
+		}
+		(function () {
+			// body...
+			var leftin1 = document.getElementsByName('leftin');
+			 var btns  = document.querySelectorAll("button");
+			 var lin   = btns[0];
+			 var queue =  document.querySelector("ul");;
+		
+			addEvent("click",document.getElementsByName('leftin')[0],leftin);
+			// addEvent("click",lin,leftin);
+			 addEvent("click",document.getElementsByName('leftout')[0],leftout);
+			 addEvent("click",document.getElementsByName('rightin')[0],rightin);
+			 addEvent("click",document.getElementsByName('rightout')[0],rightout);
+			 addEvent("click",document.getElementsByTagName("ul")[0],deleteEle);
+		})();
+
+		function leftin ( ) {
+			// body...
+			var queue = document.querySelector("ul");
+			var input = document.getElementsByName("number")[0];
+			var firstEle = document.createElement('li');
+			var nextEle = document.getElementsByName("li")[0];
+			if( input.value===undefined || input.value.match(/[^0-9]/)){
+				alert("请输入数字");
+			}else{
+				firstEle.innerHTML=parseInt(input.value);
+				if(nextEle){
+					queue.insertBefore(firstEle, nextEle);
+				}else{
+					queue.appendChild(firstEle);
+				}
+			}
+		}
+
+		function rightin(){
+			var queue = document.querySelector("ul");
+			var input = document.getElementsByName("number")[0];
+			var firstEle = document.createElement('li');
+			if( input.value===undefined ||input.value.match(/[^0-9]/)){
+				alert("请输入数字");
+			}else{
+				firstEle.innerHTML=parseInt(input.value);		
+				queue.appendChild(firstEle);
+			}
+		}
+
+		function leftout(){
+			var queue = document.querySelector("ul");
+			var nextEle = queue.querySelector("li");
+			if(nextEle){
+				alert(nextEle.innerHTML);
+				queue.removeChild(nextEle);
+			}else{
+				alert("队列为空");
+			}
+		}
+
+		function rightout(){
+			var queue = document.querySelector("ul");
+			var nextEle = queue.lastElementChild;
+			if(nextEle){
+				alert(nextEle.innerHTML);
+				queue.removeChild(nextEle);
+			}else{
+				alert("队列为空");
+			}
+		}
+		function deleteEle(){
+			var  queue  = document.querySelector("ul");
+			if( queue.target&&queue.target.nodeName == "LI"){
+				queue.removeChild(lastEle);
+			}
+		}
+	</script>
+</body>
+</html>
