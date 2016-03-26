@@ -2,23 +2,23 @@ function addEvent( type, element, fun){
       if(element.addEventListener){
         addEvent = function(type, element, fun){
           element.addEventListener(type,fun,false);
-        }
+        };
       }
       else if( element.attachEvent){
         addEvent = function(type,element,fun){
           element.attachEvent('on'+type,fun,false);
-        }
+        };
       }
       else{
         addEvent = function(type,element,fun){
           element['on'+type] =fun;
-        }
+        };
       }
       return addEvent(type,element,fun);
     }
 
 window.onload=function () {
-	// body...
+  // body...
  var btns = document.querySelectorAll("button");
  var queue =  document.querySelector("ul");
  addEvent("click",btns[0],leftin);
@@ -28,37 +28,39 @@ window.onload=function () {
  addEvent("click",btns[3],rightout);
  addEvent("click",btns[4],search);
  addEvent("click",queue,deleteEle);
+};
+
+function getInput(){
+  var input = document.querySelector("textarea");
+  var reg = /[^0-9a-zA-Z\u4e00-\u9fa5]+/;
+  var realinput = input.value.split(reg);
+  return realinput;
 }
 
 function leftin(){
   var queue = document.querySelector("ul");
-  var input = document.querySelector("textarea");
-  var firstEle = document.createElement('li');
   var nextEle = document.querySelector("li");
-  alert(input.value);
-  var reg = / /;
-  input.value.split();
-  if( input.value===undefined || input.value.match(/[^0-9]/)){
-      alert("请输入数字");
-  }else{
-    firstEle.innerHTML=parseInt(input.value);
-    if(nextEle){
+  var realinput = getInput();
+
+  for (var i = 0; i < realinput.length; i++) {
+    var firstEle = document.createElement('li');
+     firstEle.innerHTML=realinput[i];
+     if(nextEle){
       queue.insertBefore(firstEle, nextEle);
     }else{
       queue.appendChild(firstEle);
     }
   }
+
 }
 
 function rightin(){
   var queue = document.querySelector("ul");
-  var input = document.querySelector("textarea");
-  var firstEle = document.createElement('li');
-  if( input.value===undefined ||input.value.match(/[^0-9]/)){
-    alert("请输入数字");
-  }else{
-    firstEle.innerHTML=parseInt(input.value);   
-    queue.appendChild(firstEle);
+  var realinput = getInput();
+  for (var i = 0; i < realinput.length; i++) {
+    var firstEle = document.createElement('li');
+     firstEle.innerHTML=realinput[i];
+      queue.appendChild(firstEle);
   }
 }
 
@@ -84,13 +86,31 @@ function rightout(){
   }
 }
 
-function deleteEle(){
+function deleteEle(event){
+  var eventnow = event || window.event;
+  var lastEle =  eventnow.target || eventnow.srcElement;
   var  queue  = document.querySelector("ul");
-  if( queue.target&&queue.target.nodeName == "LI"){
+  if( lastEle.nodeName.toLowerCase() == "li"){
     queue.removeChild(lastEle);
   }
 }
 
-function search(){
+function render(value){
+  var list = document.getElementsByTagName('li');
+  for( var i=0;i<list.length;i++){
+    // alert( list[i].innerHTML );
+    if( list[i].innerHTML.match(value,"g")){
+      list[i].setAttribute("class","select");
+    }
+  }
+}
 
+function search(){
+  var find = document.querySelector("input");
+  var reg = /[^0-9a-zA-Z\u4e00-\u9fa5]+/;
+  if(find.value.match(reg)){
+    alert("请输入一个词");
+  }else{
+    render(find.value);
+  }
 }
