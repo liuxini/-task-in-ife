@@ -1,42 +1,62 @@
-function addEvent( type, element, fun){
-	if(element.addEventListener){
-		addEvent = function(type, element, fun){
-			element.addEventListener(type,fun,false);};
+
+var tree = document.querySelector(".root");
+function delay(fn, args, t) {
+	var queue = [], self, timer;
+	function schedule(fn, args, t) {
+		timer = setTimeout(function() {
+			timer = null;
+			fn(args);
+			if (queue.length) {
+				var item = queue.shift();
+				schedule(item.fn, item.args, item.t);
+			}
+		}, t);
+	}
+	self = {
+		delay: function(fn, args, t) {
+			if (queue.length || timer) {
+				queue.push({fn: fn, args: args, t: t});
+			} else {
+				schedule(fn, args, t);
+			}
+			return self;
 		}
-	else if( element.attachEvent){
-		addEvent = function(type,element,fun){
-			element.attachEvent('on'+type,fun,false);};
-  }else{
-  	addEvent = function(type,element,fun){
-  		element['on'+type] =fun;};
-   }
-   return addEvent(type,element,fun);
+	};
+	return self.delay(fn, args, t);
 }
- var tree={
- 	left
+ function setClass(node){ 
+ 	node.setAttribute("style","background-color:blue");
  }
 
+ function removeClass(node){
+ 		node.removeAttribute("style");
+ }
 
-window.onload=function(){
-	render();
-	var btns = document.querySelectorAll("buttons");
-	addEvent("click",btns[0],preorder);
-	addEvent("click",btns[1],inorder);
-	addEvent("click",btns[2],postorder);
-}
-
-function render(){
-
-}
-
-function preorder(){
+function render(node){
+	 if(this.delayChian)
+	 	this.delayChian.delay(setClass,node,0).delay(removeClass,node,500);
+	else
+		this.delayChian=delay(setClass,node,0).delay(removeClass,node,500);
 
 }
 
-function inorder(){
-
+function preorder(node){
+	if( !node) return;
+	render(node);
+	preorder(node.firstElementChild);
+	preorder(node.lastElementChild);
 }
 
-function postorder(){
+function inorder(node){
+	if( !node) return;
+	inorder(node.firstElementChild);
+	render(node);
+	inorder(node.lastElementChild);
+}
 
+function postorder(node){
+	if( !node) return;
+	postorder(node.firstElementChild);	
+	postorder(node.lastElementChild);
+	render(node);
 }

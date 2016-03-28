@@ -118,15 +118,11 @@
 			}
 		}
 
-		function getTarget(event) {
-    	event = event || window.event;
-    	return event.target || event.srcElement;
-	};
-
 		function deleteEle(event){
-			var lastEle = getTarget(event);
+			var event = event || window.event;
+    	var lastEle =  event.target || event.srcElement;
 			var  queue  = document.querySelector("ul");
-			if( lastEle.target.nodeName == "LI"){
+			if( lastEle.nodeName.toLowerCase() == "li"){
 				queue.removeChild(lastEle);
 			}
 		}
