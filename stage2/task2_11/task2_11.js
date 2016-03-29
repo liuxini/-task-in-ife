@@ -1,8 +1,6 @@
 var tree = document.querySelector(".root");
 var stack = [];
 var found=false;
-var founded = false;
-var isRun = false;
 var delayChian=delay(function(){},tree,0);
 function delay(fn, args, t) {
     // private instance variables
@@ -16,12 +14,7 @@ function delay(fn, args, t) {
     			isRun = true;
     			var item = queue.shift();
     			schedule(item.fn, item.args, item.t);
-    		}
-    		else
-    		{
-    			isRun = false;
-    		}
-    	}, t);            
+    		}}, t);            
     }
     self = {
     	delay: function(fn, args, t) {
@@ -59,6 +52,9 @@ function removeClass(node){
 }
 function findClass(node){
 	node.setAttribute("style","background-color:red");
+	found=!confirm('继续否,若继续，请接着点击查询');
+	isRun = !found;
+	founded=true;
 }
 
 
@@ -124,30 +120,31 @@ function levelorder(node){
 
 
 function search(node){
-	
-	found=false;
-	founded=false;
-	delayChian.enable();
+	if(!node||found) 
+       return; 
+   if( stack.length==0 ){
+		found=false;
+		delayChian.enable();
+		stack.push(node);
+	}
 	var input = document.querySelector("input");
 	if( input.value===""){
-		alert("please input");
-		return;
-	}
-	stack.push(node);
+			alert("please input");
+			return;
+		}
 	while(stack.length>0){
 		node = stack.shift();
 		render(node);
-		if( node.firstChild.data.trim()===input.value.trim()){
-			find(node);
-			return;
-		}
 		var children = node.childNodes;
-
 		for( var i=0;i<children.length;i++){
 			if( children[i].nodeType===1){
 				stack.push(children[i]);
 			}
 		}
+		if( node.firstChild.data.trim()===input.value.trim()){
+			find(node);
+			return;
+		}
+		
 	}
-	delayChian.delay(function(){alert('然而并没找到');},null,500);
 }
