@@ -1,5 +1,5 @@
 body{
-  width: 60%;
+  width: 70%;
   margin: 10px auto;
   display: flex;
   display: -webkit-flex;
@@ -9,10 +9,6 @@ body{
 
 div{
   background: url("images/folder.png") no-repeat;
-  display: flex;
-  display: -webkit-flex;
-  justify-content:space-around;
-  flex-direction:column;
   background-color: #fff;
   padding:0 20px;
   box-sizing:content-box;
@@ -24,8 +20,8 @@ div{
 }
 span{
   float: right;
-  width: 20px;  
-  height: 20px;
+  width: 15px;  
+  height: 15px;
   margin: 3px 1% 0 0;
 }
 .delete {
@@ -36,6 +32,10 @@ span{
 .add {
     background: url(./images/add.png);
     display: none;
+}
+.close{
+  display: none;
+  font-family: "Microsoft YaHei";
 }
 .add:hover,.delete:hover{
   display: block;
@@ -50,15 +50,12 @@ button{
   font-size: 14px;font-family: "Microsoft YaHei";
 }
 .found{ background-color: red; }
-.root{ width: 350px; }
+.root{ width: 80%; }
 
-.search{
-  justify-content:center;
-}
 input{
   width:150px;height: 20px;
   margin-top:10px;
 }
 .select{background-color:#DCDCDC;}
-
-/*# sourceMappingURL=task2_12.css.map */
+.select>span{display: inline-block;}
+.child{display: none;}
