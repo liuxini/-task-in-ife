@@ -1,0 +1,64 @@
+body{
+  width: 60%;
+  margin: 10px auto;
+  display: flex;
+  display: -webkit-flex;
+  justify-content:space-around;
+  flex-direction:column;
+}
+
+div{
+  background: url("images/folder.png") no-repeat;
+  display: flex;
+  display: -webkit-flex;
+  justify-content:space-around;
+  flex-direction:column;
+  background-color: #fff;
+  padding:0 20px;
+  box-sizing:content-box;
+  -moz-box-sizing:content-box; /* Firefox */
+  -webkit-box-sizing:content-box; /* Safari */
+  border-radius: 5px; 
+  border:1px solid #000;
+  margin: 10px;
+}
+span{
+  float: right;
+  width: 20px;  
+  height: 20px;
+  margin: 3px 1% 0 0;
+}
+.delete {
+  background: url(./images/close.png);
+  display: none;
+}
+        
+.add {
+    background: url(./images/add.png);
+    display: none;
+}
+.add:hover,.delete:hover{
+  display: block;
+}
+.find{background-color: red;}
+button{
+  width: 90px;height: 30px;
+  margin:10px;
+  background-color: #000;
+  color:#fff;
+  border: 0;
+  font-size: 14px;font-family: "Microsoft YaHei";
+}
+.found{ background-color: red; }
+.root{ width: 350px; }
+
+.search{
+  justify-content:center;
+}
+input{
+  width:150px;height: 20px;
+  margin-top:10px;
+}
+.select{background-color:#DCDCDC;}
+
+/*# sourceMappingURL=task2_12.css.map */
