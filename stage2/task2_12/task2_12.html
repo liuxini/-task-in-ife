@@ -1,0 +1,57 @@
+﻿<!DOCTYPE html>
+<html >
+<head lang="zh-CN" >
+  <meta http-equiv="charset" content="UTF-8">
+  <title>task2_11</title>
+  <link href="task2_12.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <section>
+    <div class="root">1
+      <div class="second">2
+        <div class="third">3
+          <div class="forth ">4</div>
+          <div class="forth">4
+            <div class="fifth">5</div>
+            <div class="fifth">5</div>
+          </div>          
+        </div>
+        <div class="third">3</div>
+        <div class="third">3
+          <div class="forth">4</div>
+          <div class="forth">4      
+            <div class="fifth">5</div>
+          </div>    
+        </div>
+    </div>
+    <div class="second">2
+      <div class="third">3
+        <div class="forth">4</div>
+        <div class="forth">4</div>
+        <div class="forth">4</div>
+      </div>
+      <div class="third">3
+        <div class="forth">4
+          <div class="fifth">5</div>
+        </div>
+        <div class="forth">4</div>
+      </div>
+    </div>
+    <div class="second fish">fish</div>
+  </div>
+    <div class="order">
+      <button onclick="preorder(tree)">先序遍历</button>
+      <button onclick="postorder(tree)">后序遍历</button>
+      <button onclick="levelorder(tree)">层次遍历</button>
+      <button onclick="deletenode()">删除</button>
+    </div>
+    <div class="search">
+      <input type="text"></input>
+      <button onclick="search(tree)">查询</button>
+      <input type="text" id="add"></input>
+      <button onclick="add()">添加</button>
+    </div>
+  </section>
+ <script type="text/javascript" src="task2_12.js"></script> 
+</body>
+</html>
