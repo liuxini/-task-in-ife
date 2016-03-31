@@ -2,7 +2,7 @@ body{
   background-color:#EAEAEA;
 }
 .wrapper{
-    width: 400px;
+    width: 600px;
     margin: 200px auto;
     font-size: 1.25rem;
     font-family: "Microsoft Yahei";
@@ -11,7 +11,7 @@ body{
     box-shadow:4px 4px 5px #888888;;
   }
   input{
-    width:200px;height: 25px;
+    width:300px;height: 25px;
     vertical-align: middle;
     margin:15px; border-radius: 5px;
     border:1px solid #000;
@@ -19,14 +19,36 @@ body{
   button{
     background-color: #000;
     color:#fff; border: 0px;
-    width:50px; height:30px;
+    width:150px; height:30px;
     border-radius: 5px;
-    margin-left: 50px;
+    margin-left: 250px;
   }
   p{
     font-size: 14px;color:#777;
-    margin-left: 63px;margin-top: -7px;
+    margin-left: 183px;margin-top: -7px;
     display: none;
   }
+  .select p{
+    display: block;
+  }
+  .first{
+    width: 150px;
+    margin-right: 10px;
+    text-align: right;
+    display: inline-block;
+  }
+  .errorInput{
+    border:1px solid red;
+  }
+  .errorTips{
+    color: red;
+    display: block;
+  }
+  .rightInput{
+    border:1px solid green;
+  }
+  .rightTips{
+    color: green;
+    display: block;
+  }
 
-/*# sourceMappingURL=task2_18.css.map */
