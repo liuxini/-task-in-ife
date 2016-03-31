@@ -73,7 +73,14 @@ function openNode(){
   }
   for( var i=0;i<children.length;i++){
     if(children[i].className==="child"){
+      if(children[i].getAttribute("style")==="display:none"){
         children[i].setAttribute("style","display:block");
+         
+      }else{
+        children[i].setAttribute("style","display:none");
+        // select.innerHTML = "v";
+      }
+        
     } 
   }
 }

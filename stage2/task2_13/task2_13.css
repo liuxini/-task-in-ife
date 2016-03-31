@@ -35,7 +35,9 @@ span{
 }
 .close{
   display: none;
-  font-family: "Microsoft YaHei";
+  background: url(./images/f138.png);
+  padding-top:2px;
+  background-size: cover;
 }
 .add:hover,.delete:hover{
   display: block;
