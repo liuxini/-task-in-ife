@@ -1,0 +1,23 @@
+body{
+  background-color:#EAEAEA;
+}
+.wrapper{
+    width: 600px;
+    margin: 200px auto;
+    font-size: 1.25rem;
+    font-family: "Microsoft Yahei";
+    background-color: #fff;
+    padding: 30px;
+    box-shadow:4px 4px 5px #888888;;
+  }
+  .one{
+    width: 350px;
+    margin: 10px auto;
+    display: none;
+  }
+  
+  
+  .select{display: block;}
+
+
+
