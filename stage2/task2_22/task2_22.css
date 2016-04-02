@@ -1,0 +1,30 @@
+﻿thead t{border: 0;}
+table{
+  border-collapse: collapse; 
+}
+tr{ height: 40px; }
+th{width: 40px;}
+td{
+  width: 40px;
+  border: 1px solid #000;
+  text-align: center;
+}
+tr td:first-child{
+  border:0;
+  font-weight: bold;
+}
+
+.order{
+  margin: 20px 50px;
+}
+tbody{position: relative;}
+#bottom{
+  background-color: red;
+  border-top: 8px solid blue;
+  position: absolute;
+  top:210px;left: 224px;
+  width: 39px;height: 29px;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}

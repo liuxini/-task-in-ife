@@ -1,0 +1,50 @@
+thead t{border: 0;}
+table{
+  border-collapse: collapse; 
+}
+tr{ height: 40px; }
+th{width: 40px;}
+td{
+  width: 40px;
+  border: 1px solid #000;
+  text-align: center;
+  position: relative;
+}
+tr td:first-child{
+  border:0;
+  font-weight: bold;
+}
+
+.order{
+  margin: 20px 50px;
+}
+
+.Left,.Top,.Bottom,.Right{
+    background-color: red;
+    padding: 0;
+}
+.Left div,.Right div,.Top div,.Bottom div{
+    background-color: blue;
+    position: absolute;
+}
+.Left div,.Right div{
+    width: 10px;
+    height: 100%;
+    top: 0px;
+}
+.Top div,.Bottom div{
+    width: 100%;
+    height: 10px;
+}
+.Top div{
+    top: 0px;
+}
+.Right div{
+    right: 0px;
+}
+.Bottom div{
+    bottom: 0px;
+}
+.Left div{
+    left: 0px;
+}
