@@ -21,7 +21,6 @@ function addEvent( type, element, fun){
     str += "<tr><td>"+i+"</td><td></td><td></td><td></td><td></td>"
                       +"<td></td><td></td><td></td><td></td><td></td><td></td>";
   };
-  str +="<div id=bottom class=bottom></div>"
   table.innerHTML=str;
 })();
 

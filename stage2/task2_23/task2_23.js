@@ -21,7 +21,6 @@ function addEvent( type, element, fun){
     str += "<tr><td>"+i+"</td><td></td><td></td><td></td><td></td>"
                       +"<td></td><td></td><td></td><td></td><td></td><td></td>";
   };
-  str +="<div id=bottom class=bottom></div>"
   table.innerHTML=str; 
 })();
 
@@ -38,14 +37,14 @@ function addEvent( type, element, fun){
      mymove.style.left = "224px";
      input.innerHTML="";
      line.innerHTML="";
-  })
+  });
 
   addEvent("click",btn,order);
   addEvent("keyup",input,rownum);
   addEvent("scroll",input,function(){
     var temp = input.scrollTop;
     line.scrollTop =temp;  
-  })
+  });
   function rownum(){
     var list = input.value.split("\n");
     var arr = " ";
@@ -132,21 +131,52 @@ function addEvent( type, element, fun){
       this.goBack();
       this.turn = 2;
     }
-  }
+  };
   
   function order(){
-    var orderlist = input.value.trim().split("\n");
-    for( var i=0;i<orderlist.length;i++){
-      var temp = orderlist[i].split(" ");
-      if( !isNaN(temp[temp.length-1])){
+    var orderlist = input.value.split("\n");
+    var temp = orderlist[0].split(" ");
+    if( !isNaN(temp[temp.length-1])){
         var num = temp[temp.length-1];
         temp.pop();
-        orderlist[i] = temp.join(" ");
-        run(orderlist[i],num,i);
+        orderlist[0] = temp.join(" ");
+        run(orderlist[0],num,0);
       }else{
-         run(orderlist[i],1,i);
+         run(orderlist[0],1,0);
       }
-    }
+    //   for( var i=1;i<orderlist.length;i++){
+    //     let j =i ;
+    //     setTimeout( function(){
+    //       var temp = orderlist[j].split(" ");
+    //       if( !isNaN(temp[temp.length-1])){
+    //         var num = temp[temp.length-1];
+    //         temp.pop();
+    //         orderlist[j] = temp.join(" ");
+
+    //         run(orderlist[j],num,j);
+    //       }else{
+    //            run(orderlist[j],1,j);
+    //       }  
+    //   },500*j);
+    // }  
+    var i=0;
+     var timer = setInterval(function(){
+       i++;
+       if( i<orderlist.length){
+        var temp = orderlist[i].split(" ");
+          if( !isNaN(temp[temp.length-1])){
+            var num = temp[temp.length-1];
+            temp.pop();
+            orderlist[i] = temp.join(" ");
+
+            run(orderlist[i],num,i);
+          }else{
+               run(orderlist[i],1,i);
+          } 
+         }else{
+           clearInterval(timer);
+         }
+     },500);
   }
 
   function run(str,num,j){
@@ -217,4 +247,4 @@ function addEvent( type, element, fun){
     }
   }
 
-})()
+})();
