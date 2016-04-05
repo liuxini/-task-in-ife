@@ -17,8 +17,13 @@ function addEvent( type, element, fun){
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext("2d");
   context.beginPath();
-  context.arc(200,100,50,0,Math.PI*2,true);
-  context.closePath();
+  context.arc(500,200,40,0,Math.PI*2,true);
   context.fillStyle = 'green';
   context.fill();
+  for( var i=0;i<4;i++){
+     context.arc(500,200,70+i*30,0,Math.PI*2,true);
+     context.strokeStyle = 'green';
+     context.stroke();
+  } 
+  context.closePath();
 })();

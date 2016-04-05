@@ -43,7 +43,9 @@ body{
   width: 320px;height: 320px;
   border-radius: 160px;
 }*/
-/*#canvas{ width: 100%;height: 400px; }*/
+#canvas{ 
+  margin: 0 100px;
+ }
 .console{
   width: 40%;height: 200px;
   margin:0 80px;
