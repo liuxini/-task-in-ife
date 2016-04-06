@@ -2,6 +2,7 @@ body{
   width: 100%;
   color: #fff;
   background-color: #000;
+  min-width: 1240px;
 }
 .wrapper{ 
   width: 98%; 
@@ -47,13 +48,14 @@ body{
   margin: 0 100px;
  }
 .console{
-  width: 40%;height: 200px;
+  width: 40%;height: 220px;
   margin:0 80px;
   border-radius: 10px;
   border:1px solid #fff;
 }
 .wrapper h5{
   width: 100px;
+  font-size: 15px;
   margin: 10px auto;
 }
 .spaceship{
@@ -74,7 +76,7 @@ body{
 }
 .terminal{
   float: right;
-  width: 40%;height: 200px;
+  width: 40%;height: 220px;
   margin-right: 80px;
   border-radius: 10px;
   border:1px solid #fff;
