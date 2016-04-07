@@ -273,7 +273,8 @@ var position = {};
       this.goBack();
       this.turn = 2;
     }
-    moveto:function(){    //a*
+    moveto:function(destination){    //a*
+      var open ={},closed={};
 
     }
   };
