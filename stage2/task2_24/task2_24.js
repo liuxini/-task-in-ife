@@ -12,17 +12,29 @@ function addEvent( type, element, fun){
    }
    return addEvent(type,element,fun);
 }
+var position = {};
 
 (function () {
   var str="";
   var table = document.getElementById("tbody");
-
+  var wall = document.getElementById("wall");
+  var tbody = document.querySelector("tbody");
   for( var i=1;i<=15;i++){
     str += "<tr><td>"+i+"</td><td></td><td></td><td></td><td></td>"
                     +"<td></td><td></td><td></td><td></td><td></td>"
                     +"<td></td><td></td><td></td><td></td><td></td><td></td>";
   };
   table.innerHTML=str; 
+  addEvent("click",wall,function(){
+    var x =parseInt(Math.random()*15+1) ;
+    var y =parseInt(Math.random()*14) ;
+    while( position.x ===y){
+      x = parseInt(Math.random()*15+1) ;
+      y = parseInt(Math.random()*14) ;
+    }
+    position[x] =y;
+    tbody.childNodes[y].childNodes[x].setAttribute("class","block");   
+  });
 })();
 
 (function(){
@@ -32,12 +44,11 @@ function addEvent( type, element, fun){
   var refress = document.getElementById('refress');
   var line =document.getElementById('line');
   var tbody = document.querySelector("tbody");
-  var position = {};
-   mymove.style.top = "242px";
-  mymove.style.left = "242px";
+   mymove.style.top = "240px";
+  mymove.style.left = "240px";
   addEvent("click",refress,function(){
-     mymove.style.top = "242px";
-     mymove.style.left = "242px";
+     mymove.style.top = "240px";
+     mymove.style.left = "240px";
      input.innerHTML="";
      line.innerHTML="";
   });
@@ -74,13 +85,13 @@ function addEvent( type, element, fun){
     },
     build:function(){
       if (this.turn % 4 == 3 || this.turn % 4 == -1){  //left
-        if (parseInt(mymove.style.left) > 82) {
-          var x = parseInt( (parseInt(mymove.style.left)-82)/40 )+1;
-          var y = parseInt( (parseInt(mymove.style.top)-42)/40 );
-          if( position["x"]===y){
+        if (parseInt(mymove.style.left) > 80) {
+          var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]===y){
             console.log("墙已存在");
           }else{
-            position.x = y;
+            position[x] = y;
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -88,27 +99,27 @@ function addEvent( type, element, fun){
         }
       }
       if (this.turn % 4 == 2 || this.turn % 4 == -2) {  //bottom
-        if (parseInt(mymove.style.top) < 602) {
-          var x = parseInt( (parseInt(mymove.style.left)-42)/40 )+1;
-          var y = parseInt( (parseInt(mymove.style.top)-2)/40 );
-          if( position["x"]===y){
+        if (parseInt(mymove.style.top) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top))/40 );
+          if( position[x]===y){
             console.log("墙已存在");
           }else{
-            position.x = y;
+            position[x] = y;
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
           console.log("无足够空间");
         }
       }
-      if  (this.turn% 4 == 1 || this.turn% 4 == -3) {  //right if (parseInt(mymove.style.left) < 612) {
-         if (parseInt(mymove.style.left) < 602) {
-          var x = parseInt( (parseInt(mymove.style.left)-2)/40 )+1;
-          var y = parseInt( (parseInt(mymove.style.top)-42)/40 );
-          if( position["x"]===y){
+      if  (this.turn% 4 == 1 || this.turn% 4 == -3) {  //right 
+         if (parseInt(mymove.style.left) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]===y){
             console.log("墙已存在");
           }else{
-            position.x = y;
+            position[x] = y;
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -116,13 +127,13 @@ function addEvent( type, element, fun){
         }
       }
       if (this.turn % 4 == 0){   //top
-        if (parseInt(mymove.style.top) > 82) {
-          var x = parseInt( (parseInt(mymove.style.left)-42)/40 )+1;
-          var y = parseInt( (parseInt(mymove.style.top)-82)/40 );
-          if( position["x"]===y){
+        if (parseInt(mymove.style.top) > 80) {
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
+          if( position[x]===y){
             console.log("墙已存在");
           }else{
-            position.x = y;
+            position[x] = y;
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -130,47 +141,117 @@ function addEvent( type, element, fun){
         }
       }
     },
+    color:function(color){
+       if (this.turn % 4 == 3 || this.turn % 4 == -1){  //left
+          var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]===y){
+            tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
+          }else{
+            console.log("不存在可染色的墙");
+          }
+        }
+      if (this.turn % 4 == 2 || this.turn % 4 == -2) {  //bottom
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top))/40 );
+          if( position[x]===y){
+            tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
+          }else{
+            console.log("不存在可染色的墙");
+          }
+      }
+      if  (this.turn% 4 == 1 || this.turn% 4 == -3) {  //right  
+          var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]===y){
+            tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
+          }else{
+            console.log("不存在可染色的墙");
+          }
+      }
+      if (this.turn % 4 == 0){   //top
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
+          if( position[x]===y){
+            tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
+          }else{
+            console.log("不存在可染色的墙");
+          }
+        }
+    },
     go:function(){
       if (this.turn % 4 == 3 || this.turn % 4 == -1) {
         if (parseInt(mymove.style.left) > 52) {
-          mymove.style.left = (parseInt(mymove.style.left) - 40) + 'px';
+          var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 ); 
+          if( position[x]!==y){
+             mymove.style.left = (parseInt(mymove.style.left) - 40) + 'px';
+          }  
         }
       }
       if (this.turn % 4 == 2 || this.turn % 4 == -2) {
-        if (parseInt(mymove.style.top) < 602) {
-          mymove.style.top = (parseInt(mymove.style.top) + 40) + 'px';
+        if (parseInt(mymove.style.top) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top))/40 );
+          if( position[x]!==y){
+            mymove.style.top = (parseInt(mymove.style.top) + 40) + 'px';
+          }
         }
       }
       if (this.turn% 4 == 1 || this.turn% 4 == -3) {
-        if (parseInt(mymove.style.left) < 601) {
-          mymove.style.left = (parseInt(mymove.style.left) + 40) + 'px';
+        if (parseInt(mymove.style.left) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]!==y){
+            mymove.style.left = (parseInt(mymove.style.left) + 40) + 'px';
+          }
         }
       }
       if (this.turn % 4 == 0) {
         if (parseInt(mymove.style.top) > 42) {
-          mymove.style.top = (parseInt(mymove.style.top) - 40) + 'px';
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
+          if( position[x]!==y){
+            mymove.style.top = (parseInt(mymove.style.top) - 40) + 'px';
+          }
         }
       }
     },
     goLeft: function() {
-      if (parseInt( mymove.style.left) > 52) {
-         mymove.style.left = (parseInt( mymove.style.left) - 40) + 'px';
-      }
+      if (parseInt(mymove.style.left) > 52) {
+          var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 ); 
+          if( position[x]!==y){
+             mymove.style.left = (parseInt(mymove.style.left) - 40) + 'px';
+          }  
+        }
     },
-    goRight: function() {
-      if (parseInt( mymove.style.left) < 601) {
-         mymove.style.left = (parseInt( mymove.style.left) + 40) + 'px';
-      }
+    goRight: function() {   
+      if (parseInt(mymove.style.left) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
+          if( position[x]!==y){
+            mymove.style.left = (parseInt(mymove.style.left) + 40) + 'px';
+          }
+        }
     },
     goTop: function() {
-      if (parseInt( mymove.style.top) > 42) {
-         mymove.style.top = (parseInt( mymove.style.top) - 40) + 'px';
-      }
+      if (parseInt(mymove.style.top) > 42) {
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
+          if( position[x]!==y){
+            mymove.style.top = (parseInt(mymove.style.top) - 40) + 'px';
+          }
+        }
     },
     goBack: function() {
-      if (parseInt( mymove.style.top) < 602) {
-         mymove.style.top = (parseInt( mymove.style.top) + 40) + 'px';
-      }
+      if (parseInt(mymove.style.top) < 600) {
+          var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+          var y = parseInt( (parseInt(mymove.style.top))/40 );
+          if( position[x]!==y){
+            mymove.style.top = (parseInt(mymove.style.top) + 40) + 'px';
+          }
+        }
     },
     movLeft: function() {
        mymove.style.transform = "rotate(-90deg)";
@@ -192,60 +273,69 @@ function addEvent( type, element, fun){
       this.goBack();
       this.turn = 2;
     }
+    moveto:function(){    //a*
+
+    }
   };
   
   function order(){
     var orderlist = input.value.split("\n");
     var temp = orderlist[0].split(" ");
-    if( !isNaN(temp[temp.length-1])){
-        var num = temp[temp.length-1];
-        temp.pop();
-        orderlist[0] = temp.join(" ");
-        run(orderlist[0],num,0);
-      }else{
-         run(orderlist[0],1,0);
-      }
-    //   for( var i=1;i<orderlist.length;i++){
-    //     let j =i ;
-    //     setTimeout( function(){
-    //       var temp = orderlist[j].split(" ");
-    //       if( !isNaN(temp[temp.length-1])){
-    //         var num = temp[temp.length-1];
-    //         temp.pop();
-    //         orderlist[j] = temp.join(" ");
+      var lastone = temp[temp.length-1];
+        if( !isNaN(lastone)){
+          temp.pop();
+          orderlist[0] = temp.join(" ");
+          run(orderlist[0],lastone,0);
+        }else{
+          if( lastone.match(/^#[0-9a-fA-F]{6}/)) {
+            temp.pop();
+            orderlist[0] = temp.join(" ");
+            run(orderlist[0],1,0,lastone);
+          }else if( lastone.match(/^\(\d*,\d*\)$/) ){
+            temp.pop();
+            orderlist[0] = temp.join(" ");
+            run(orderlist[0],1,0,lastone);
+          }
+           else  run(orderlist[0],1,0);
+        } 
 
-    //         run(orderlist[j],num,j);
-    //       }else{
-    //            run(orderlist[j],1,j);
-    //       }  
-    //   },500*j);
-    // }  
     var i=0;
      var timer = setInterval(function(){
        i++;
        if( i<orderlist.length){
         var temp = orderlist[i].split(" ");
-          if( !isNaN(temp[temp.length-1])){
-            var num = temp[temp.length-1];
+        var lastone = temp[temp.length-1];
+          if( !isNaN(lastone)){
             temp.pop();
             orderlist[i] = temp.join(" ");
-
-            run(orderlist[i],num,i);
-          }else{
-               run(orderlist[i],1,i);
-          } 
+            run(orderlist[i],lastone,i);
+          }
+          else if( lastone.match(/^#[0-9a-fA-F]{6}/)) {
+              temp.pop();
+              orderlist[i] = temp.join(" ");
+              run(orderlist[i],1,i,lastone);
+          }else if( lastone.match(/^\(\d*,\d*\)$/) ){
+            temp.pop();
+            orderlist[i] = temp.join(" ");
+            run(orderlist[i],1,i,lastone);
+          }
+          else  run(orderlist[i],1,i);
          }else{
            clearInterval(timer);
          }
      },500);
   }
 
-  function run(str,num,j){
+  function run(str,num,j,temp){
     switch( str.toLowerCase()){
      case 'build':
       move.build();
      break;
      case 'bur':
+      move.color(tepm);
+     break;
+     case 'mov to':
+        move.moveto(temp);
      break;
     case 'go':
       for(var i=0; i<num; i++){
