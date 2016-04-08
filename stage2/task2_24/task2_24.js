@@ -293,7 +293,8 @@ var position = {};
         alert("超出范围");
         return null;
       }
-      var node = {
+      var node = function(){};
+      node.prototype={
         parent:begin,
         x:0,
         y:0,
@@ -303,7 +304,7 @@ var position = {};
           return (gn+hn)*1.005;
         },        
       };
-      var beginnode = new node();
+      
       open.push(begin);
       while( open){
         temp = open.shift();
