@@ -274,8 +274,42 @@ var position = {};
       this.turn = 2;
     }
     moveto:function(destination){    //a*
-      var open ={},closed={};
+      var open =[],closed=[];
 
+      var begin = {
+        x:function(){  
+          return parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
+        },
+        y:function(){
+          return parseInt( (parseInt(mymove.style.top)-40)/40 );
+        }
+      };
+
+      var end ={
+        x:parseInt(destination.split(",")[0].substr(1)),
+        y:parseInt(destination.split(",")[1].substr(1));
+      }
+      if( end.x>15||end.y>15){
+        alert("超出范围");
+        return null;
+      }
+      var node = {
+        parent:begin,
+        x:0,
+        y:0,
+        fn:function(){
+          var gn = Math.abs(this.x-begin.x)+Math.abs(this.y-begin.y);
+          var hn = Math.abs(this.x-end.x)+Math.abs(this.y-end.y);
+          return (gn+hn)*1.005;
+        },        
+      };
+      var beginnode = new node();
+      open.push(begin);
+      while( open){
+        temp = open.shift();
+
+      }
+      
     }
   };
   
