@@ -272,45 +272,106 @@ var position = {};
        mymove.style.transform = "rotate(180deg)";
       this.goBack();
       this.turn = 2;
-    }
-    moveto:function(destination){    //a*
-      var open =[],closed=[];
-
+    },
+    moveto:function(destination){    //astart
+      var open =[],closed={};
+      var theway = [];
       var begin = {
-        x:function(){  
-          return parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
-        },
-        y:function(){
-          return parseInt( (parseInt(mymove.style.top)-40)/40 );
-        }
+        x: parseInt( (parseInt(mymove.style.left)-40)/40 )+1,
+        y: parseInt( (parseInt(mymove.style.top)-40)/40 ),
       };
-
       var end ={
         x:parseInt(destination.split(",")[0].substr(1)),
-        y:parseInt(destination.split(",")[1].substr(1));
+        y:parseInt(destination.split(",")[1].slice(0,-1))-1,
       }
-      if( end.x>15||end.y>15){
-        alert("超出范围");
+      if( end.x>15||end.y>14||position[end.x]===end.y){
+        alert("不可达区域!");
         return null;
       }
-      var node = function(){};
-      node.prototype={
-        parent:begin,
-        x:0,
-        y:0,
-        fn:function(){
-          var gn = Math.abs(this.x-begin.x)+Math.abs(this.y-begin.y);
-          var hn = Math.abs(this.x-end.x)+Math.abs(this.y-end.y);
-          return (gn+hn)*1.005;
-        },        
-      };
-      
-      open.push(begin);
-      while( open){
-        temp = open.shift();
 
+      function node(x,y){
+        var obj = new Object();
+        obj.x = x,
+        obj.y = y,
+        obj.hn = Math.abs(obj.x-end.x)+Math.abs(obj.y-end.y);
+        return obj;
+      };
+
+      function getneighbors(obj){
+        var neighbors=[];
+        if( position[obj.x]!==(obj.y-1)){
+          var neighbor = node(obj.x,(obj.y-1));
+          neighbors.push(neighbor);
+        }
+
+        if( position[obj.x]!==(obj.y+1)){
+          var neighbor = node(obj.x,(obj.y+1));
+          neighbors.push(neighbor);
+        }
+
+        if( position[obj.x-1]!==(obj.y)){
+          var neighbor = node((obj.x-1),obj.y);
+          neighbors.push(neighbor);
+        }
+
+        if( position[obj.x+1]!==(obj.y)){
+          var neighbor = node((obj.x+1),obj.y);
+          neighbors.push(neighbor);
+        }
+
+        return neighbors;
       }
-      
+
+      var beginnode = node(begin.x,begin.y);
+      beginnode.gn = 0,
+      beginnode.fn = 0;
+      var endnode = node(end.x,end.y);
+      open.push(beginnode);
+
+      while( open){
+        temp = open.shift();        
+        if( temp === endnode){
+          theway.push([temp.x,temp.y]);
+          while(temp.parent !==beginnode ){
+            temp = temp.parent;
+            theway.push([temp.x,temp.y]);          
+          }
+          theway.reverse();
+
+        } 
+
+        closed[temp.x] = temp.y;
+
+        neighbors = getneighbors(temp);
+        for( var i=0;i<neighbors.length;i++){
+          neighbor = neighbors[i];
+
+          if( closed[neighbor.x] === neighbor.y){
+            continue;
+          }
+
+          var gn = temp.gn+1;
+          
+          if( !neighbor.open || gn<neighbor.gn ){
+            neighbor.hn = neighbor.hn;
+            neighbor.gn = gn;
+            neighbor.fn = neighbor.gn+neighbor.hn;
+            neighbor.parent = temp;
+
+            if( !neighbor.open){
+              open.push(neighbor);
+              neighbor.open =true;
+            }else{
+              open.push(neighbor);
+              open.sort(function(a,b){
+                return a.fn-b.fn;
+              });
+            }
+          }
+
+        }
+
+      }      
     }
   };
   
