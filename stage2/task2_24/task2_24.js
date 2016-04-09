@@ -12,7 +12,15 @@ function addEvent( type, element, fun){
    }
    return addEvent(type,element,fun);
 }
-var position = {};
+var position = [];
+function contains(arr,obj){
+  for( var i = 0 ;i<arr.length;i++){
+    if( arr[i][0] === obj[0]&&arr[i][1]===obj[1]){
+      return true;
+    }
+  }  
+  return false;
+}
 
 (function () {
   var str="";
@@ -28,11 +36,11 @@ var position = {};
   addEvent("click",wall,function(){
     var x =parseInt(Math.random()*15+1) ;
     var y =parseInt(Math.random()*14) ;
-    while( position[x] ===y){
+    while( contains(position,[x,y])){
       x = parseInt(Math.random()*15+1) ;
       y = parseInt(Math.random()*14) ;
     }
-    position[x] =y;
+    position.push([x,y]);
     tbody.childNodes[y].childNodes[x].setAttribute("class","block");   
   });
 })();
@@ -88,10 +96,10 @@ var position = {};
         if (parseInt(mymove.style.left) > 80) {
           var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             console.log("墙已存在");
           }else{
-            position[x] = y;
+            position.push([x,y]);
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -102,10 +110,10 @@ var position = {};
         if (parseInt(mymove.style.top) < 600) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top))/40 );
-          if( position[x]===y){
+          if(contains(position,[x,y])){
             console.log("墙已存在");
           }else{
-            position[x] = y;
+            position.push([x,y]);
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -116,10 +124,10 @@ var position = {};
          if (parseInt(mymove.style.left) < 600) {
           var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             console.log("墙已存在");
           }else{
-            position[x] = y;
+            position.push([x,y]);
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -130,10 +138,10 @@ var position = {};
         if (parseInt(mymove.style.top) > 80) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             console.log("墙已存在");
           }else{
-            position[x] = y;
+            position.push([x,y]);
             tbody.childNodes[y].childNodes[x].setAttribute("class","block");
           }
         }else{
@@ -145,7 +153,7 @@ var position = {};
        if (this.turn % 4 == 3 || this.turn % 4 == -1){  //left
           var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
           }else{
             console.log("不存在可染色的墙");
@@ -154,7 +162,7 @@ var position = {};
       if (this.turn % 4 == 2 || this.turn % 4 == -2) {  //bottom
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top))/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
           }else{
             console.log("不存在可染色的墙");
@@ -163,7 +171,7 @@ var position = {};
       if  (this.turn% 4 == 1 || this.turn% 4 == -3) {  //right  
           var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
           }else{
             console.log("不存在可染色的墙");
@@ -172,7 +180,7 @@ var position = {};
       if (this.turn % 4 == 0){   //top
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
-          if( position[x]===y){
+          if( contains(position,[x,y])){
             tbody.childNodes[y].childNodes[x].style.backgroundColor=color;
           }else{
             console.log("不存在可染色的墙");
@@ -184,7 +192,7 @@ var position = {};
         if (parseInt(mymove.style.left) > 52) {
           var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 ); 
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
              mymove.style.left = (parseInt(mymove.style.left) - 40) + 'px';
           }  
         }
@@ -193,7 +201,7 @@ var position = {};
         if (parseInt(mymove.style.top) < 600) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top))/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.top = (parseInt(mymove.style.top) + 40) + 'px';
           }
         }
@@ -202,7 +210,7 @@ var position = {};
         if (parseInt(mymove.style.left) < 600) {
           var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.left = (parseInt(mymove.style.left) + 40) + 'px';
           }
         }
@@ -211,7 +219,7 @@ var position = {};
         if (parseInt(mymove.style.top) > 42) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.top = (parseInt(mymove.style.top) - 40) + 'px';
           }
         }
@@ -221,7 +229,7 @@ var position = {};
       if (parseInt(mymove.style.left) > 52) {
           var x = parseInt( (parseInt(mymove.style.left)-80)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 ); 
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
              mymove.style.left = (parseInt(mymove.style.left) - 40) + 'px';
           }  
         }
@@ -230,7 +238,7 @@ var position = {};
       if (parseInt(mymove.style.left) < 600) {
           var x = parseInt( (parseInt(mymove.style.left))/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-40)/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.left = (parseInt(mymove.style.left) + 40) + 'px';
           }
         }
@@ -239,7 +247,7 @@ var position = {};
       if (parseInt(mymove.style.top) > 42) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top)-80)/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.top = (parseInt(mymove.style.top) - 40) + 'px';
           }
         }
@@ -248,7 +256,7 @@ var position = {};
       if (parseInt(mymove.style.top) < 600) {
           var x = parseInt( (parseInt(mymove.style.left)-40)/40 )+1;
           var y = parseInt( (parseInt(mymove.style.top))/40 );
-          if( position[x]!==y){
+          if( !contains(position,[x,y])){
             mymove.style.top = (parseInt(mymove.style.top) + 40) + 'px';
           }
         }
@@ -284,7 +292,7 @@ var position = {};
         x:parseInt(destination.split(",")[0].substr(1)),
         y:parseInt(destination.split(",")[1].slice(0,-1))-1,
       };
-      if( end.x>15||end.y>14||end.x===0||end.y<0||position[end.x]===end.y){
+      if( end.x>15||end.y>14||end.x===0||end.y<0||contains(position,[end.x,end.y])){
         alert("不可达区域!");
         return null;
       }
@@ -303,22 +311,22 @@ var position = {};
 
       function getneighbors(obj){
         var neighbors=[];
-        if( obj.y>=1&&position[obj.x]!==(obj.y-1)){
+        if( obj.y>=1&& (!contains(position,[obj.x, obj.y-1]))){
           var neighbor = nodes[obj.x][obj.y-1];
           neighbors.push(neighbor);
         }
 
-        if( obj.y<14&&position[obj.x]!==(obj.y+1)){
+        if( obj.y<14&&(!contains(position,[obj.x, obj.y+1]))){
           var neighbor = nodes[obj.x][obj.y+1];
           neighbors.push(neighbor);
         }
 
-        if( obj.x>1&&position[obj.x-1]!==(obj.y)){
+        if( obj.x>1&& !contains(position,[obj.x-1, obj.y])){
           var neighbor = nodes[obj.x-1][obj.y];
           neighbors.push(neighbor);
         }
 
-        if( obj.x<15&&position[obj.x+1]!==(obj.y)){
+        if( obj.x<15&& !contains(position,[obj.x+1, obj.y])){
           var neighbor = nodes[obj.x+1][obj.y];
           neighbors.push(neighbor);
         }
@@ -361,8 +369,10 @@ var position = {};
             }
           },500);
         }
-         
-        closed[temp.x] = temp.y;
+         if( temp){
+           closed[temp.x] = temp.y;
+         }
+       
 
         neighbors = getneighbors(temp);
         for( var i=0;i<neighbors.length;i++){
@@ -448,7 +458,7 @@ var position = {};
       move.build();
      break;
      case 'bur':
-      move.color(tepm);
+      move.color(temp);
      break;
      case 'mov to':
         move.moveto(temp);
