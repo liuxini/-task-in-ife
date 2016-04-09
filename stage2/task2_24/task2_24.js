@@ -28,7 +28,7 @@ var position = {};
   addEvent("click",wall,function(){
     var x =parseInt(Math.random()*15+1) ;
     var y =parseInt(Math.random()*14) ;
-    while( position.x ===y){
+    while( position[x] ===y){
       x = parseInt(Math.random()*15+1) ;
       y = parseInt(Math.random()*14) ;
     }
@@ -283,49 +283,53 @@ var position = {};
       var end ={
         x:parseInt(destination.split(",")[0].substr(1)),
         y:parseInt(destination.split(",")[1].slice(0,-1))-1,
-      }
-      if( end.x>15||end.y>14||position[end.x]===end.y){
+      };
+      if( end.x>15||end.y>14||end.x===0||end.y<0||position[end.x]===end.y){
         alert("不可达区域!");
         return null;
       }
 
       function node(x,y){
-        var obj = new Object();
-        obj.x = x,
-        obj.y = y,
-        obj.hn = Math.abs(obj.x-end.x)+Math.abs(obj.y-end.y);
-        return obj;
+        this.x = x,
+        this.y = y;
       };
+      var nodes = new Array(16);
+      for( let i=1;i<=15;i++){
+        nodes[i] = new Array(15);
+        for( let j=0;j<15;j++){
+          nodes[i][j] =new node(i,j);
+        }
+      }
 
       function getneighbors(obj){
         var neighbors=[];
-        if( position[obj.x]!==(obj.y-1)){
-          var neighbor = node(obj.x,(obj.y-1));
+        if( obj.y>=1&&position[obj.x]!==(obj.y-1)){
+          var neighbor = nodes[obj.x][obj.y-1];
           neighbors.push(neighbor);
         }
 
-        if( position[obj.x]!==(obj.y+1)){
-          var neighbor = node(obj.x,(obj.y+1));
+        if( obj.y<14&&position[obj.x]!==(obj.y+1)){
+          var neighbor = nodes[obj.x][obj.y+1];
           neighbors.push(neighbor);
         }
 
-        if( position[obj.x-1]!==(obj.y)){
-          var neighbor = node((obj.x-1),obj.y);
+        if( obj.x>1&&position[obj.x-1]!==(obj.y)){
+          var neighbor = nodes[obj.x-1][obj.y];
           neighbors.push(neighbor);
         }
 
-        if( position[obj.x+1]!==(obj.y)){
-          var neighbor = node((obj.x+1),obj.y);
+        if( obj.x<15&&position[obj.x+1]!==(obj.y)){
+          var neighbor = nodes[obj.x+1][obj.y];
           neighbors.push(neighbor);
         }
 
         return neighbors;
       }
 
-      var beginnode = node(begin.x,begin.y);
+      var beginnode = nodes[begin.x][begin.y];
       beginnode.gn = 0,
       beginnode.fn = 0;
-      var endnode = node(end.x,end.y);
+      var endnode = nodes[end.x][end.y];
       open.push(beginnode);
 
       while( open){
@@ -338,8 +342,26 @@ var position = {};
           }
           theway.reverse();
 
-        } 
-
+          var parenttemp = [begin.x,begin.y];
+          var m = 0;
+          var timer = setInterval( function(){
+            if( theway[m][0]===parenttemp[0] && theway[m][1]+1===parenttemp[1]){
+              move.movTop();
+            }else if(theway[m][0]+1===parenttemp[0] && theway[m][1]===parenttemp[1]){
+              move.movLeft();
+            }else if(theway[m][0]===parenttemp[0]+1 && theway[m][1]===parenttemp[1]){
+              move.movRight();
+            }else if(theway[m][0]===parenttemp[0] && theway[m][1]===parenttemp[1]+1){
+              move.movBottom();
+            }
+            parenttemp = theway[m];
+            m++;
+            if( m=== theway.length){
+              clearInterval(timer);
+            }
+          },500);
+        }
+         
         closed[temp.x] = temp.y;
 
         neighbors = getneighbors(temp);
@@ -352,25 +374,22 @@ var position = {};
 
           var gn = temp.gn+1;
           
-          if( !neighbor.open || gn<neighbor.gn ){
-            neighbor.hn = neighbor.hn;
+          if( !neighbor.opened || gn<neighbor.gn ){
+            neighbor.hn = neighbor.hn||Math.abs(neighbor.x-end.x)+Math.abs(neighbor.y-end.y);
             neighbor.gn = gn;
             neighbor.fn = neighbor.gn+neighbor.hn;
             neighbor.parent = temp;
 
-            if( !neighbor.open){
-              open.push(neighbor);
-              neighbor.open =true;
+            if( !neighbor.opened){
+              neighbor.opened =true;
+              open.push(neighbor);             
+              open.sort(function(a,b){ return a.fn-b.fn; });
+
             }else{
-              open.push(neighbor);
-              open.sort(function(a,b){
-                return a.fn-b.fn;
-              });
+              open.sort(function(a,b){ return a.fn-b.fn; });
             }
           }
-
         }
-
       }      
     }
   };
