@@ -1,0 +1,116 @@
+﻿<!DOCTYPE html>
+<html >
+<head lang="zh-CN" >
+  <meta http-equiv="charset" content="UTF-8">
+  <title>task2_16</title>
+  <link href="task2_16.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<div class= "wrapper">
+  <section class= "show">
+    <canvas id="canvas" width="720" height="400"></canvas>
+    <section class="flightstatus">
+      <table>
+        <thead>
+          <tr>
+            <th>飞船</th>
+            <th>动力系统</th>
+            <th>能源系统</th>
+            <th>飞行状态</th>
+            <th>剩余能耗</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1号</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+          </tr>
+          <tr>
+            <td>2号</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+          </tr>
+          <tr>
+            <td>3号</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+          </tr>
+          <tr>
+            <td>4号</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+            <td>未知</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+    
+  </section>
+  <div class="choose">
+      <h5>创建飞船</h5>
+      <div class="type">
+        <p>动力系统选择：</p>
+        <input type="radio" name="vtype">前进号(速率30px/s,能耗5%/s)</input></br>
+        <input type="radio" name="vtype">奔腾号(速率50px/s,能耗7%/s)</input></br>
+        <input type="radio" name="vtype" >超越号(速率80px/s,能耗9%/s)</input></br>
+      </div>
+      <div class="energy">
+        <p>能源系统选择：</p>
+        <input type="radio" name="energytype" >劲量型(补充速度2%/s)</input></br>
+        <input type="radio" name="energytype" >光能型(补充速度3%/s)</input></br>
+        <input type="radio" name="energytype" >永久型(补充速度4%/s)</input></br>
+      </div>
+      <div class="button">
+        <button id="yes">确定</button>
+        <button id="no">取消</button>
+      </div>
+    </div>
+  <section class="terminallist">
+    <h5>接受命令显示</h5>
+    <div class="terminal"></div>
+  </section>
+  
+  <section class="console">
+    <h5>指挥官控制台</h5>
+    
+    <div class="spaceship" id="one">
+      <p>一号飞船</p>
+      <div class="order" id="create">创建飞船</div>
+      <div class="order"  id="fly">开始飞行</div>
+      <div class="order" id="stop">停止飞行</div>
+      <div class="order" id="destroy">销毁飞船</div>
+    </div>
+    <div class="spaceship" id="two">
+      <p>二号飞船</p>
+      <div class="order" id="create">创建飞船</div>
+      <div class="order"  id="fly">开始飞行</div>
+      <div class="order" id="stop">停止飞行</div>
+      <div class="order" id="destroy">销毁飞船</div>
+    </div>
+    <div class="spaceship" id="three">
+      <p>三号飞船</p>
+      <div class="order" id="create">创建飞船</div>
+      <div class="order"  id="fly">开始飞行</div>
+      <div class="order" id="stop">停止飞行</div>
+      <div class="order" id="destroy">销毁飞船</div>
+    </div>
+    <div class="spaceship" id="four">
+      <p>四号飞船</p>
+      <div class="order" id="create">创建飞船</div>
+      <div class="order"  id="fly">开始飞行</div>
+      <div class="order" id="stop">停止飞行</div>
+      <div class="order" id="destroy">销毁飞船</div>
+    </div> 
+  </section>
+</div>
+<script type="text/javascript" src="task2_16.js"></script> 
+</body>
+</html>

@@ -1,0 +1,24 @@
+body{
+    height: 1000px;
+}
+
+.show{
+    margin:40px 40px;
+}
+input{
+    width: 250px;height: 25px;
+}
+.calendar{
+    width: 250px;height: 300px;
+    border:1px solid #ccc;
+}
+.calendar_years{
+    width: 100%;height: 25px;
+    background-color: #00868B;
+}
+.calendar_week{
+
+}
+.calendar.btns{
+
+}

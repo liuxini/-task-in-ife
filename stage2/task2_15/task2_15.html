@@ -2,25 +2,41 @@
 <html >
 <head lang="zh-CN" >
   <meta http-equiv="charset" content="UTF-8">
-  <title>task2_14</title>
-  <link href="task2_14.css" rel="stylesheet" type="text/css" />
+  <title>task2_15</title>
+  <link href="task2_15.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
 <div class= "wrapper">
   <section class= "show">
-    <!-- <div class="center"></div>
-    <div id="center0"></div>
-    <div id="center1"></div>
-    <div id="center2"></div>
-    <div id="center3"></div> -->
     <canvas id="canvas" width="960" height="400"></canvas>
   </section>
+  <div class="choose">
+      <h5>创建飞船</h5>
+      <div class="type">
+        <p>动力系统选择：</p>
+        <input type="radio" name="vtype">前进号(速率30px/s,能耗5%/s)</input></br>
+        <input type="radio" name="vtype">奔腾号(速率50px/s,能耗7%/s)</input></br>
+        <input type="radio" name="vtype" >超越号(速率80px/s,能耗9%/s)</input></br>
+      </div>
+      <div class="energy">
+        <p>能源系统选择：</p>
+        <input type="radio" name="energytype" >劲量型(补充速度2%/s)</input></br>
+        <input type="radio" name="energytype" >光能型(补充速度3%/s)</input></br>
+        <input type="radio" name="energytype" >永久型(补充速度4%/s)</input></br>
+      </div>
+      <div class="button">
+        <button id="yes">确定</button>
+        <button id="no">取消</button>
+      </div>
+    </div>
   <section class="terminallist">
     <h5>接受命令显示</h5>
     <div class="terminal"></div>
   </section>
+  
   <section class="console">
     <h5>指挥官控制台</h5>
+    
     <div class="spaceship" id="one">
       <p>一号飞船</p>
       <div class="order" id="create">创建飞船</div>
@@ -48,10 +64,9 @@
       <div class="order"  id="fly">开始飞行</div>
       <div class="order" id="stop">停止飞行</div>
       <div class="order" id="destroy">销毁飞船</div>
-    </div>
+    </div> 
   </section>
-  
 </div>
-<script type="text/javascript" src="task2_14.js"></script> 
+<script type="text/javascript" src="task2_15.js"></script> 
 </body>
 </html>

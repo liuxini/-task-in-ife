@@ -22,7 +22,7 @@ ul{
 	list-style: none;	
 }
 .menu li{
-	font-family: 微软雅黑;
+	font-family: "Microsoft Yahei";
 	display: inline;
 	color: #ffffff;
 	padding: 16px;
@@ -38,7 +38,7 @@ ul{
 }
 article{
 	padding: 20px 20px;
-	font-family: 微软雅黑;
+	font-family:"Microsoft Yahei";
 }
 article h2{
 	font-size: 18px;
@@ -125,7 +125,7 @@ textarea{
 	width: 100%;
 
 	font-size: 18px;
-	font-family: 微软雅黑;
+	font-family: "Microsoft Yahei";
 	height: 50px;
 	border-radius: 10px;
 }
@@ -133,7 +133,7 @@ footer{
 	background-color: #000000;
 	text-align: center;
 	height: 70px;
-	font-family: 微软雅黑;
+	font-family: "Microsoft Yahei";
 	color: #ffffff;
 }
 footer p{

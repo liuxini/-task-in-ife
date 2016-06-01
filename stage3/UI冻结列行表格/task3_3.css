@@ -1,0 +1,17 @@
+body{
+    height: 1000px;
+}
+
+.show{
+    margin:40px 40px;
+}
+
+table{
+    border-collapse: collapse;
+}
+
+td,th{
+    text-align: center;
+    line-height: 40px;
+    font-size: 13px;
+}
