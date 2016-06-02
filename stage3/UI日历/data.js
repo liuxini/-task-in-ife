@@ -19,12 +19,14 @@ Calendar.prototype =  {
     init:function () {
         var that = this;
         var mainDiv = document.createElement('div');
+        mainDiv.setAttribute('class','mainDiv');
         mainDiv.style.position = 'relative';
         this.container.appendChild(mainDiv);
 
         this.mainDiv = mainDiv;
 
         var calendarEle = document.createElement('div');
+        calendarEle.setAttribute('class','calendarEle');
         calendarEle.style.width='250px';
         calendarEle.style.height = '300px';
         calendarEle.style.border = '1px solid #ccc';
@@ -43,27 +45,27 @@ Calendar.prototype =  {
         title.appendChild(years);
         title.appendChild(month);
 
-        title.style.width = '250px';
+        title.style.width = '240px';
         title.style.height = '25px';
         title.style.textAlign = 'center';
         title.style.backgroundColor = '#00868B';
         title.style.color='#ffffff';
-        titilt.style.padding = '5px';
+        title.style.padding = '5px';
         calendarEle.appendChild(title);
 
         var premonth = document.createElement('div');
         premonth.innerHTML = '<';
         premonth.style.float = 'left';
         premonth.style.cursor = 'pointer';
-        title.appendChild('premonth');
+        title.appendChild(premonth);
 
         addEvent('click',premonth,that.preMonth);
 
         var nextmonth = document.createElement('div');
-        nextmonth.innerHTML = '<';
-        nextmonth.style.float = 'left';
+        nextmonth.innerHTML = '>';
+        nextmonth.style.float = 'right';
         nextmonth.style.cursor = 'pointer';
-        title.appendChild('nextmonth'); 
+        title.appendChild(nextmonth); 
 
         addEvent('click',nextmonth,that.nextMonth);
 
@@ -72,7 +74,7 @@ Calendar.prototype =  {
             ele.setAttribute('class','day');
             ele.style.textAlign = 'center';
             ele.style.display = 'inline-block';
-            ele.style.width = '30px';
+            ele.style.width = '35px';
             ele.style.height = '30px';
             ele.style.lineHeight = '30px';
 
@@ -81,9 +83,9 @@ Calendar.prototype =  {
 
         for( var i = 0; i < 7; i++ ){
             var el = createEle();
-            el.innerHTML=this.day[i];
+            el.innerHTML = this.week[i];
             calendarEle.appendChild(el);
-            if(i === 0 || i === 6){
+            if( i === 0 || i === 6 ){
                 el.style.color = '#00868B';
             }
         }
@@ -97,10 +99,10 @@ Calendar.prototype =  {
         btnYes.innerHTML = '确定';
         calendarEle.appendChild(btnYes);
         addEvent('click',btnYes,function(){
-            if(this.multi){
-                single.innerHTML = that.getSelectedDate();
-            }else{
+            if ( this.multi ) {
                 duration.innerHTML = that.getSelectedDate();
+            } else {                
+                single.innerHTML = that.getSelectedDate();
             }
             calendarEle.style.display = 'none';
             that.selectCall();
@@ -120,16 +122,16 @@ Calendar.prototype =  {
             if( calendarEle.style.display==='none'){
                 return ;
             }
-            var e = e ||window.event;
+            var e = e || window.event;
             var target = e.target || e.srcElement;
-            if( target.nodeName.toLowerCase() ==='span'){
+            if( target.nodeName.toLowerCase() ==='span') {
                 var allSpan = that.calendarEle.getElementsByTagName('span'),
                     index = allSpan.index(target),
                     selectIndex = allSpan.index(that.selectedEle);
                 var dat = new Date(that.date);
-                dat.setDate(dat.getDate()+index -selectIndex );
+                dat.setDate(dat.getDate()+index - selectIndex );
 
-                if( that.multi){
+                if( that.multi ){
                     if( that.selectedDates.length<1){
                         that.selectedDates.push(dat);
                     }else{
@@ -152,9 +154,10 @@ Calendar.prototype =  {
             }
         }
 
-        addEvent('click',calendarEle,function(){
-            calendarClick();
-        });
+        // addEvent('click',calendarEle,function(e){
+        //     calendarClick(e);
+        // }); 
+        addEvent('click',calendarEle,calendarClick);
 
     },
     
@@ -162,6 +165,12 @@ Calendar.prototype =  {
         this.selectCall = fn;
         return this;
     },
+
+    selectDate: function(dat) { 
+        this.renderByDate(dat);  
+        this.date = dat; 
+    }, 
+
 
     nextMonth: function() {
         var dat = new Date(this.date);
@@ -201,25 +210,37 @@ Calendar.prototype =  {
             return getString(this.date);
         }
     },
-
-    selectDate:function(){
-        this.renderByDate(date);
-
-        this.date = date;
-    },
-
+    
     renderByDate:function(date){
-
+        var years = document.querySelectorAll('.year');
+        var month = document.querySelectorAll('.month');
+        if ( this.multi) {
+            years[1].innerHTML = this.date.getFullYear()+'年';
+            month[1].innerHTML = this.date.getMonth()+1 + '月' ;
+        } else {
+            years[0].innerHTML = this.date.getFullYear()+'年';
+            month[0].innerHTML = this.date.getMonth()+1 + '月' ;
+        }
+    
         var dat = new Date(date);
         dat.setDate(dat.getDate() - date.getDate() + 1);
         dat.setDate(dat.getDate() - dat.getDay());
 
-        var allSpan = that.calendarEle.getElementsByTagName('span');
+        var allSpan = document.querySelectorAll('.day');
+        
         for( var i=0;i<42;i++){
-            allSpan[i+7].innerHTML = dat.getDate();
-            var ele = allSpan[i+7];
+            var ele ; 
+            if ( this.multi ) {
+                allSpan[i+7+49].innerHTML = dat.getDate();
+                ele = allSpan[i+7+49];
+
+            } else {
+                allSpan[i+7].innerHTML = dat.getDate();
+                ele = allSpan[i+7];
+            }
+            
             if ( date.getTime() === dat.getTime()) {
-                this.selectedEle = allSpan[i+7];
+                this.selectedEle = ele;
             }
 
             if( (this.selectedDates[0] && dat.getTime() === this.selectedDates[0].getTime()) ||

@@ -18,20 +18,23 @@ function addEvent(type, element, fun){
     var body = document.body;
     var calendar = new Calendar ( body );
     var calendarlong = new Calendar ( body, true, 3, 60 );
+    var calendarEle = document.querySelectorAll('.calendarEle');
 
     addEvent('click',single,function(){
-        if( calendar.style.display ==='none'){
-            calendar.style.display = '';
-        }else{
-            calendar.style.display = 'none';
+    
+        if ( calendarEle[0].style.display ==='none' ) {
+            calendarEle[0].style.display = '';
+        } else {
+            calendarEle[0].style.display = 'none';
         }
     });
 
     addEvent('click',duration,function(){
-        if( calendarlong.style.display ==='none'){
-            calendarlong.style.display = '';
-        }else{
-            calendarlong.style.display = 'none';
+        
+        if ( calendarEle[1].style.display ==='none' ) {
+            calendarEle[1].style.display = '';
+        } else {
+            calendarEle[1].style.display = 'none';
         }
     });
-});
+})();
