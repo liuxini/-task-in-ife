@@ -15,6 +15,10 @@ function addEvent(type, element, fun){
 (function(){
     var single = document.getElementById('day');
     var duration = document.getElementById('time');
+    var body = document.body;
+    var calendar = new Calendar ( body );
+    var calendarlong = new Calendar ( body, true, 3, 60 );
+
     addEvent('click',single,function(){
         if( calendar.style.display ==='none'){
             calendar.style.display = '';
@@ -24,10 +28,10 @@ function addEvent(type, element, fun){
     });
 
     addEvent('click',duration,function(){
-        if( calendar.style.display ==='none'){
-            calendar.style.display = '';
+        if( calendarlong.style.display ==='none'){
+            calendarlong.style.display = '';
         }else{
-            calendar.style.display = 'none';
+            calendarlong.style.display = 'none';
         }
     });
 });

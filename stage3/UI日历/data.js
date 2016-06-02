@@ -1,5 +1,5 @@
-var calendar = function(container,duration,min,max){    
-    this.duration = duration;
+var Calendar = function(container,multi,min,max){    
+    this.multi = multi;
     this.container = container;
     this.min = min || 0;
     this.max = max || 0;
@@ -13,7 +13,7 @@ var calendar = function(container,duration,min,max){
     this.init();
 }
 
-calendar.prototype =  {
+Calendar.prototype =  {
     week:['Su','Mo','Tu','We','Th','Fr','Sa'],
 
     init:function () {
@@ -113,52 +113,51 @@ calendar.prototype =  {
             calendarEle.style.display = 'none';
         });
 
-    },
-    this.renderByDate(this.date);
+        this.renderByDate(this.date);
 
-    var that = this;
-    calendarClick = function(e){
-        if( calendarEle.style.display==='none'){
-            return ;
-        }
-        var e = e ||window.event;
-        var target = e.target || e.srcElement;
-        if( target.nodeName.toLowerCase() ==='span'){
-            var allSpan = that.calendarEle.getElementsByTagName('span'),
-                index = allSpan.index(target),
-                selectIndex = allSpan.index(that.selectedEle);
-            var dat = new Date(that.date);
-            dat.setDate(dat.getDate()+index -selectIndex );
-
-            if( that.multi){
-                if( that.selectedDates.length<1){
-                    that.selectedDates.push(dat);
-                }else{
-                    var preDate = that.selectedDates[that.selectedDates.length - 1];
-                    var dayNum = Math.abs(dat - preDate) / 1000 / 60 / 60 / 24;
-                    if (dayNum < self.min || dayNum > self.max) {
-                        alert('时间跨度不在范围内');
-                    } else {
-                        that.selectedDates.push(dat);
-                    }
-                }
-
-                if (that.selectedDates.length > 2) {
-                    that.selectedDates.shift();
-                }
-            }else{
-                that.selectedDates[0] = dat;
+        var that = this;
+        calendarClick = function(e){
+            if( calendarEle.style.display==='none'){
+                return ;
             }
-            that.selectDate(dat);
+            var e = e ||window.event;
+            var target = e.target || e.srcElement;
+            if( target.nodeName.toLowerCase() ==='span'){
+                var allSpan = that.calendarEle.getElementsByTagName('span'),
+                    index = allSpan.index(target),
+                    selectIndex = allSpan.index(that.selectedEle);
+                var dat = new Date(that.date);
+                dat.setDate(dat.getDate()+index -selectIndex );
+
+                if( that.multi){
+                    if( that.selectedDates.length<1){
+                        that.selectedDates.push(dat);
+                    }else{
+                        var preDate = that.selectedDates[that.selectedDates.length - 1];
+                        var dayNum = Math.abs(dat - preDate) / 1000 / 60 / 60 / 24;
+                        if (dayNum < self.min || dayNum > self.max) {
+                            alert('时间跨度不在范围内');
+                        } else {
+                            that.selectedDates.push(dat);
+                        }
+                    }
+
+                    if (that.selectedDates.length > 2) {
+                        that.selectedDates.shift();
+                    }
+                }else{
+                    that.selectedDates[0] = dat;
+                }
+                that.selectDate(dat);
+            }
         }
-    }
 
-    addEvent('click',calendarEle,function(){
-        calendarClick();
-    });
+        addEvent('click',calendarEle,function(){
+            calendarClick();
+        });
 
-
-
+    },
+    
     select: function(fn) {
         this.selectCall = fn;
         return this;
@@ -217,10 +216,36 @@ calendar.prototype =  {
 
         var allSpan = that.calendarEle.getElementsByTagName('span');
         for( var i=0;i<42;i++){
+            allSpan[i+7].innerHTML = dat.getDate();
+            var ele = allSpan[i+7];
+            if ( date.getTime() === dat.getTime()) {
+                this.selectedEle = allSpan[i+7];
+            }
 
-        } 
+            if( (this.selectedDates[0] && dat.getTime() === this.selectedDates[0].getTime()) ||
+                (this.selectedDates[1] && dat.getTime() === this.selectedDates[1].getTime()) ) {
+                ele.style.backgroundColor = 'rgb(200,27,1)';
+                ele.style.color = 'white';
+            } else {
+                if( (this.selectedDates.length === 2 && this.selectedDates[0] > dat && this.selectedDates[1] < dat) ||
+                    (this.selectedDates.length === 2 && this.selectedDates[1] > dat && this.selectedDates[0] < dat) ) {
+                    ele.style.backgroundColor = 'rgb(235,244,249)';
+                } else {
+                    ele.style.backgroundColor = '';
+                    ele.style.color = '';
+                }
+
+                if(dat.getMonth() !== date.getMonth() ) {
+                    ele.style.color = 'lightgray';
+                } else {
+                    if( dat.getDay() === 0 || dat.getDay() ===6 ) {
+                        ele.style.color = 'rgb(200,27,1)';
+                    } 
+                }
+            }
+
+            dat.setDate( dat.getDate()+1 );
+        }        
     },
-
-
 
 };
