@@ -59,7 +59,9 @@ Calendar.prototype =  {
         premonth.style.cursor = 'pointer';
         title.appendChild(premonth);
 
-        addEvent('click',premonth,that.preMonth);
+        addEvent('click',premonth,function(){
+            that.preMonth();
+        });
 
         var nextmonth = document.createElement('div');
         nextmonth.innerHTML = '>';
@@ -67,7 +69,9 @@ Calendar.prototype =  {
         nextmonth.style.cursor = 'pointer';
         title.appendChild(nextmonth); 
 
-        addEvent('click',nextmonth,that.nextMonth);
+        addEvent('click',nextmonth,function(){
+            that.nextMonth();
+        });
 
         function createEle(){
             var ele = document.createElement('span');
@@ -153,10 +157,6 @@ Calendar.prototype =  {
                 that.selectDate(dat);
             }
         }
-
-        // addEvent('click',calendarEle,function(e){
-        //     calendarClick(e);
-        // }); 
         addEvent('click',calendarEle,calendarClick);
 
     },
@@ -215,11 +215,11 @@ Calendar.prototype =  {
         var years = document.querySelectorAll('.year');
         var month = document.querySelectorAll('.month');
         if ( this.multi) {
-            years[1].innerHTML = this.date.getFullYear()+'年';
-            month[1].innerHTML = this.date.getMonth()+1 + '月' ;
+            years[1].innerHTML = date.getFullYear()+'年';
+            month[1].innerHTML = (date.getMonth()+1) + '月' ;
         } else {
-            years[0].innerHTML = this.date.getFullYear()+'年';
-            month[0].innerHTML = this.date.getMonth()+1 + '月' ;
+            years[0].innerHTML = date.getFullYear()+'年';
+            month[0].innerHTML = (date.getMonth()+1) + '月' ;
         }
     
         var dat = new Date(date);
