@@ -27,7 +27,7 @@ Calendar.prototype =  {
 
         var calendarEle = document.createElement('div');
         calendarEle.setAttribute('class','calendarEle');
-        calendarEle.style.width='250px';
+        calendarEle.style.width='255px';
         calendarEle.style.height = '300px';
         calendarEle.style.border = '1px solid #ccc';
         calendarEle.style.position = 'absolute';
@@ -45,7 +45,7 @@ Calendar.prototype =  {
         title.appendChild(years);
         title.appendChild(month);
 
-        title.style.width = '240px';
+        title.style.width = '245px';
         title.style.height = '25px';
         title.style.textAlign = 'center';
         title.style.backgroundColor = '#00868B';
@@ -78,7 +78,7 @@ Calendar.prototype =  {
             ele.setAttribute('class','day');
             ele.style.textAlign = 'center';
             ele.style.display = 'inline-block';
-            ele.style.width = '35px';
+            ele.style.width = '36px';
             ele.style.height = '30px';
             ele.style.lineHeight = '30px';
 
@@ -100,13 +100,16 @@ Calendar.prototype =  {
         }
 
         var btnYes = document.createElement('button');
+        var single = document.getElementById('day');
+        var duration = document.getElementById('time');
+
         btnYes.innerHTML = '确定';
         calendarEle.appendChild(btnYes);
         addEvent('click',btnYes,function(){
-            if ( this.multi ) {
-                duration.innerHTML = that.getSelectedDate();
+            if ( that.multi ) {
+                duration.value = that.getSelectedDate();
             } else {                
-                single.innerHTML = that.getSelectedDate();
+                single.value = that.getSelectedDate();
             }
             calendarEle.style.display = 'none';
             that.selectCall();
@@ -129,10 +132,33 @@ Calendar.prototype =  {
             var e = e || window.event;
             var target = e.target || e.srcElement;
             if( target.nodeName.toLowerCase() ==='span') {
-                var allSpan = that.calendarEle.getElementsByTagName('span'),
-                    index = allSpan.index(target),
-                    selectIndex = allSpan.index(that.selectedEle);
-                var dat = new Date(that.date);
+                var allSpan = document.getElementsByClassName('day');
+                var index ;
+                if( that.multi ){
+                    for( let i=56; i<98; i++ ) {
+                        if( allSpan[i] === target ){
+                            var index = i ;
+                            break;
+                        }
+                    }
+                    index -= 56;
+                } else {
+                    for( let i=7; i<42; i++ ) {
+                        if( allSpan[i] === target ){
+                            var index = i ;
+                            break;
+                        }
+                    }
+                    index -= 7;
+                }
+                
+                var datetemp = new Date(that.date);
+                var daytemp = datetemp.getDate();
+                datetemp.setDate(1);
+                var selectIndex = daytemp + datetemp.getDay()-1;
+                // var selectIndex = allSpan.indexOf(that.selectedEle);
+        
+                var dat = new Date(that.date);              
                 dat.setDate(dat.getDate()+index - selectIndex );
 
                 if( that.multi ){
@@ -203,7 +229,7 @@ Calendar.prototype =  {
                 }
             } else{
                 alert('请选择时间');
-                return ;
+                return '请选择时间段';
             }
             
         }else{

@@ -24,6 +24,7 @@ function addEvent(type, element, fun){
     
         if ( calendarEle[0].style.display ==='none' ) {
             calendarEle[0].style.display = '';
+            calendarEle[0].style.marginLeft = '112px';
         } else {
             calendarEle[0].style.display = 'none';
         }
@@ -33,6 +34,7 @@ function addEvent(type, element, fun){
         
         if ( calendarEle[1].style.display ==='none' ) {
             calendarEle[1].style.display = '';
+            calendarEle[1].style.marginLeft = '477px';
         } else {
             calendarEle[1].style.display = 'none';
         }
