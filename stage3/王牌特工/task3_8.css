@@ -1,0 +1,18 @@
+html, body{
+     height: 100%;
+     position: relative;
+     margin: 0;
+     overflow: hidden;
+     -webkit-user-select:none;
+}
+@media screen and (min-width: 1024px) {
+    .contant-wrapper{
+        width: 360px;
+        margin: 0 auto;
+    }
+}
+.contant-wrapper{
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
