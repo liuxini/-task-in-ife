@@ -8,11 +8,19 @@ html, body{
 @media screen and (min-width: 1024px) {
     .contant-wrapper{
         width: 360px;
-        margin: 0 auto;
+        height: 600px;
+        margin: 20px auto;
+        background-color: #FFDDAA ;
     }
 }
+canvas{
+    width:100%;
+    height:100%;
+}
 .contant-wrapper{
-    height: 100%;
+    /*height: 600px;
+    width:300px;*/
+    background-color: #FFDDAA ;
     position: relative;
     overflow: hidden;
 }
