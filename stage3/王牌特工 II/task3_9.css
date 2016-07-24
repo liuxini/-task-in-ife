@@ -8,8 +8,8 @@ html, body{
 @media screen and (min-width: 1024px) {
     .contant-wrapper{
         width: 360px;
-        height: 600px;
-        margin: 20px auto;
+        height: 500px;
+        margin: 10px auto;
         background-color: #FFDDAA ;
     }
 }

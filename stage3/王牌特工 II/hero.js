@@ -1,6 +1,8 @@
 var Hero = function  () {
     this.x = 0;
     this.y = 0;
+    this.speed = 4;
+    this.name = 'hero';
 }
 Hero.prototype.init = function(){
     do{
@@ -31,9 +33,23 @@ Hero.prototype.detectGuard = function( row,col ) {
     var distance, dirX, dirY, line, endx, endy, i, j;
     distance = Math.sqrt(Math.pow( (col * main.cellWidth - this.x),2)+Math.pow((row*main.cellHeight-this.y),2));
     dirX = (col * main.cellWidth - this.x)/distance;
-    dirY = (row*main.cellHeight-this.y)/distance;
-    
-
+    dirY = (row * main.cellHeight-this.y)/distance;
+    i = this.x + main.cellWidth/2;
+    j = this.y + main.cellHeight/2;
+    while(true) {
+        line =  Math.sqrt(Math.pow( (i-this.x - main.cellWidth/2 ),2)+Math.pow((j-this.y-main.cellHeight/2),2));
+        if( line> distance ) {
+            break;
+        }
+        i += dirX;
+        j += dirY;
+        endx = Math.floor(i/main.cellWidth);
+        endy = Math.floor(j/main.cellHeight);;
+        if( main.map[endy][endx].empty === false ) {
+            return;
+        }
+    }
+    this.shoot( this.x+main.cellWidth/2, this.y+main.cellHeight/2, dirX, dirY, this);
 }
 Hero.prototype.shoot = function(i, j, dirX, dirY, shooter) {
     var bullet = new Bullet(i,j,dirX,dirY,shooter);

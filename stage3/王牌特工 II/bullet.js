@@ -5,7 +5,7 @@ var Bullet = function (i, j, dirX, dirY, shooter) {
     this.dirY = dirY;
     this.speed = 2;
     this.r = 3;
-    this.color = '';
+    this.color = 'cornflowerblue';
     this.shooter = shooter;
 }
 

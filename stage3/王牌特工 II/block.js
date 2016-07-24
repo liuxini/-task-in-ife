@@ -17,7 +17,7 @@ Block.prototype.buildMap = function() {
     }
     i = 0;
     while( i<this.num ) {
-        row = Math.floor( Math.random()* (main.row-2));
+        row = Math.floor( Math.random()* (main.row-2)+1);
         col = Math.floor(Math.random() * main.col);
         if( main.map[row][col].empty === true ) {
             main.map[row][col].empty = false;
