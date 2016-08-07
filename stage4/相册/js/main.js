@@ -125,6 +125,7 @@
      */
     IfeAlbum.prototype.getImageDomElements = function() {
         var imageitems = document.querySelectorAll('.albumitem');
+        imageitems = Array.prototype.slice.call(imageitems );
         var url = [];
         imageitems.forEach(function(ele) {
           ele.ratio = ele.querySelector("img").naturalWidth / ele.querySelector("img").naturalHeight;
