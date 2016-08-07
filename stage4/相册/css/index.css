@@ -1,0 +1,126 @@
+body{
+    margin: 0;
+    background-color: #ffffff;
+    font-family: "Microsoft YaHei";
+}
+header{
+    width: 100%;
+    box-shadow:0px 2px 2px #888888;
+}
+a{
+    text-decoration: none; 
+    color:#000000;
+}
+.nav-bar{
+    width: 95%;height: 50px;
+    margin: 0 auto;
+    /*vertical-align:text-top;  */
+    text-align: center;
+}
+.menusvg{
+    float:left;
+    width: 20px;height: 20px;
+    margin: 15px 20px;
+    display: inline-block;
+}
+.nav-bar>span{
+    margin: 0 10px;
+    font-size: 22px; line-height: 50px;
+}
+.nav-bar>span:hover{
+    cursor: pointer;
+}
+.wrapper{
+    position: relative;
+    width: 100%;height: 600px;
+    background: url("../image/background.jpg");
+    background-size:cover;
+}
+.main-wrapper{
+    position: relative;
+}
+.side-setting{
+    position: absolute;top:2px;
+    width: 27%;right: 0;
+    background-color: #ffffff;
+}
+.option{
+    position: absolute;
+    left: 0;
+    width: 33%;
+    box-shadow:1px 5px 5px #888888;
+    background-color:#ffffff; 
+    cursor: pointer;
+}
+.setting{
+    position: absolute;
+    right: 0;
+    width: 66%;
+    background-color:#ffffff; 
+    box-shadow:1px 5px 5px #888888;
+}
+.sideMenu{
+    position: absolute;
+    width: 15%;top: 50px;
+    box-shadow:10px 10px 5px #888888;
+    background-color:#ffffff; 
+}
+.hidden{
+    left:-20%;
+}
+.showmenu{
+    left: 0;
+}
+@keyframes myfirst{
+    from {margin-left:-20%;}
+    to {margin-left:0;}
+}
+
+@-moz-keyframes myfirst /* Firefox */{
+    from {margin-left:-20%;}
+    to {margin-left:0;}
+}
+
+@-webkit-keyframes myfirst /* Safari 和 Chrome */{
+    from {margin-left:-20%;}
+    to {margin-left:0;}
+}
+
+@-o-keyframes myfirst /* Opera */{
+    from {margin-left:-20%;}
+    to {margin-left:0;}
+}
+.animation{
+    animation: myfirst 2s;
+    -moz-animation: myfirst 2s; /* Firefox */
+    -webkit-animation: myfirst 2s;  /* Safari 和 Chrome */
+    -o-animation: myfirst 2s;   /* Opera */
+}
+ul{
+    list-style-type:none;
+    padding: 0;margin: 0;
+}
+li{
+    height: 50px;
+    font-size: 16px;
+    border:1px solid #FFF5EE;
+    text-align: center;
+    line-height: 50px;
+}
+footer{
+    text-align: center;
+    background-color: #000000;
+    color: #ffffff;
+}
+.setting li>input{
+    width: 20px;
+    text-align: center;
+}
+.setting li>span{
+    cursor: pointer;
+}
+
+.photo-container{
+    width: 90%;
+    margin: 10px auto;
+}

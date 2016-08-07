@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-sweb-app-capable" content="yes">
+    <meta describe = '百度前端技术学院题目'>
+    <title>相册</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+</head>
+<body>
+  <header>
+    <nav class="nav-bar">
+      <svg class="menusvg">
+        <path d="M3,18h18v-2H3V18z M3,13h18v-2H3V13z M3,6v2h18V6H3z"></path>
+      </svg>
+      <span>相册</span>
+    </nav>
+  </header>
+  
+  <main class='main-wrapper'>
+    <div class="sideMenu hidden">
+      <ul class="menulist">
+        <li><a href="index.html">首页</a></li>
+        <li><a href="task3_6.html">进入相册</a></li>
+        <li><a href="photolist.html">编辑相册</a></li>
+        <li><a href="#">待定</a></li>
+      </ul>      
+    </div>   
+    <div class="photo-container"></div>
+      <div class="side-setting">
+        <div class="setting">
+          <ul>
+            <li>Total:</li>
+            <li>FullScreen: <select class="fullScreen">
+              <option value="true">true</option>
+              <option value="false">false</option>
+            </select>
+          </li>
+            <li>Gutter:&nbsp<span class="sub">-</span><input type="text" style="width:20px" id="gutterInput" value="8"><span class="addGutter">+</span></li>
+            <li><button class="addpic">add pic</button></li>
+          </ul>
+        </div>
+        <div class="option">
+          <ul>
+            <li id="Puzzle">Puzzle</li>
+            <li id="Waterfall">Waterfall</li>
+            <li id="Barrel">Barrel</li>
+          </ul>
+        </div>
+      </div>
+  </main>     
+  
+  <script type="text/javascript" src="../js/index.js"></script>
+  <script type="text/javascript" src="../js/main.js"></script>
+  <script type="text/javascript" src="../js/show.js"></script>
+  <script type="text/javascript" src="../js/task4_2.js"></script>
+  <script type="text/javascript">
+    var app = new Application();
+  </script>
+</body>
+</html>

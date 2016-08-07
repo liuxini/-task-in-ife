@@ -1,0 +1,42 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset='UTF-8'>
+    <meta describe>
+    <title>UI相册之拼图布局</title>
+    <link rel="stylesheet" type="text/css" href="../css/task3_6.css">
+    <link rel="stylesheet" type="text/css" href="../css/index.css">
+</head>
+<body>
+    <header>
+    <nav class="nav-bar">
+      <svg class="menusvg">
+        <path d="M3,18h18v-2H3V18z M3,13h18v-2H3V13z M3,6v2h18V6H3z"></path>
+      </svg>
+      <span>相册</span>
+    </nav>
+  </header>
+
+    <main class='main-wrapper'>
+      <div class="sideMenu hidden">
+        <ul class="menulist">
+          <li><a href="index.html">首页</a></li>
+          <li><a href="task3_6.html">进入相册</a></li>
+          <li><a href="photolist.html">编辑相册</a></li>
+          <li><a href="#">待定</a></li>
+        </ul>
+      </div>   
+  </main>  
+    <section class="waterfall-wrapper">
+
+    </section>
+    <script type="text/javascript" src="../js/index.js"></script>
+    <script type="text/javascript" src="../js/app.js"></script>
+    <script type="text/javascript" src="../js/task3_6.js"></script>
+    <script type="text/javascript" src="../js/show.js"></script>
+    <script type="text/javascript">
+        new Application(new waterFall());
+    </script>
+</body>
+
+</html>
