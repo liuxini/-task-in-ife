@@ -1,0 +1,192 @@
+var Calendar = function(container){    
+    this.container = container;
+
+    this.date = new Date();
+    this.selectedEle = null;
+    this.mainDiv = null;
+
+    this.selectedDates = null;
+    this.init();
+}
+
+Calendar.prototype =  {
+    week:['Su','Mo','Tu','We','Th','Fr','Sa'],
+
+    init: function () {
+        var that = this;
+        var mainDiv = document.createElement('div');
+        mainDiv.setAttribute('class','mainDiv');
+        mainDiv.style.position = 'relative';
+        this.container.appendChild(mainDiv);
+
+        this.mainDiv = mainDiv;
+
+        var calendarEle = document.createElement('div');
+        calendarEle.setAttribute('class','calendarEle');
+        calendarEle.style.width='255px';
+        calendarEle.style.height = '300px';
+        calendarEle.style.border = '1px solid #ccc';
+        calendarEle.style.position = 'absolute';
+        calendarEle.style.fontFamily = 'Microsoft YaHei';
+        calendarEle.style.display='none';
+        mainDiv.appendChild(calendarEle);
+
+        var title = document.createElement('div');
+        var years = document.createElement('span');
+        var month = document.createElement('span');
+
+        years.setAttribute('class','year');
+        month.setAttribute('class','month');
+        title.setAttribute('class','title');
+        title.appendChild(years);
+        title.appendChild(month);
+
+        title.style.width = '245px';
+        title.style.height = '25px';
+        title.style.textAlign = 'center';
+        title.style.backgroundColor = '#00868B';
+        title.style.color='#ffffff';
+        title.style.padding = '5px';
+        calendarEle.appendChild(title);
+
+        var premonth = document.createElement('div');
+        premonth.innerHTML = '<';
+        premonth.style.float = 'left';
+        premonth.style.cursor = 'pointer';
+        title.appendChild(premonth);
+
+        addEvent('click',premonth,function(){
+            that.preMonth();
+        });
+
+        var nextmonth = document.createElement('div');
+        nextmonth.innerHTML = '>';
+        nextmonth.style.float = 'right';
+        nextmonth.style.cursor = 'pointer';
+        title.appendChild(nextmonth); 
+
+        addEvent('click',nextmonth,function(){
+            that.nextMonth();
+        });
+
+        function createEle(){
+            var ele = document.createElement('span');
+            ele.setAttribute('class','day');
+            ele.style.textAlign = 'center';
+            ele.style.display = 'inline-block';
+            ele.style.width = '36px';
+            ele.style.height = '30px';
+            ele.style.lineHeight = '30px';
+
+            return ele;
+        }
+
+        for( var i = 0; i < 7; i++ ){
+            var el = createEle();
+            el.innerHTML = this.week[i];
+            calendarEle.appendChild(el);
+            if( i === 0 || i === 6 ){
+                el.style.color = '#00868B';
+            }
+        }
+        for (var i = 0; i < 42; i++) {
+            var elemet = createEle();
+            elemet.style.cursor = 'pointer';
+            calendarEle.appendChild(elemet);
+        }
+
+        this.renderByDate(this.date);
+
+        var that = this;
+        calendarClick = function(e){
+            if( calendarEle.style.display==='none'){
+                return ;
+            }
+            var e = e || window.event;
+            var target = e.target || e.srcElement;
+            if( target.nodeName.toLowerCase() ==='span') {
+                var allSpan = document.getElementsByClassName('day');
+                var index ;
+             
+                for( let i=0; i<42; i++ ) {
+                    if( allSpan[i] === target ){
+                        var index = i ;
+                        break;
+                    }
+                }
+                          
+                var datetemp = new Date(that.date);
+                var dat = new Date(that.date);              
+                datetemp.setDate(1);       
+                dat.setDate( index - datetemp.getDay()+1 );
+            
+                 that.selectedDates = dat;
+                
+                that.selectDate(dat);
+            }
+        }
+        addEvent('click',calendarEle,calendarClick);
+
+    },
+
+    selectDate: function(dat) { 
+        this.renderByDate(dat);  
+        this.date = dat; 
+    }, 
+
+    nextMonth: function() {
+        var dat = new Date(this.date);
+        dat.setMonth(dat.getMonth() + 1);
+        this.selectDate(dat);
+    },
+
+    preMonth: function() {
+        var dat = new Date(this.date);
+        dat.setMonth(dat.getMonth() - 1);
+        this.selectDate(dat);
+    },
+
+    getSelectedDate:function(){
+        function getString(date) {
+            var y = date.getFullYear(),
+                m = date.getMonth() + 1,
+                d = date.getDate();
+            return y + '年' + (m < 10 ? '0' + m : m) + '月' + (d < 10 ? '0' + d : d) + '日';
+        }
+
+         return getString(this.date);
+        
+    },
+    
+    renderByDate:function(date){
+        var years = document.querySelector('.year');
+        var month = document.querySelector('.month');
+      
+        years.innerHTML = date.getFullYear()+'年';
+        month.innerHTML = (date.getMonth()+1) + '月' ;
+    
+        var dat = new Date(date);
+        dat.setDate(dat.getDate() - date.getDate() + 1);
+        dat.setDate(dat.getDate() - dat.getDay());
+
+        var allSpan = document.querySelectorAll('.day');
+        
+        for( var i=0;i<42;i++){
+            var ele ;      
+            allSpan[i+7].innerHTML = dat.getDate();
+             ele = allSpan[i+7];
+                    
+            if ( date.getTime() === dat.getTime()) {
+                this.selectedEle = ele;
+            }
+
+            if( this.selectedDates && dat.getTime() === this.selectedDates.getTime() ) {
+                ele.style.backgroundColor = 'rgb(200,27,1)';
+                ele.style.color = 'white';
+            } 
+
+            dat.setDate( dat.getDate()+1 );
+        }        
+    },
+
+};
