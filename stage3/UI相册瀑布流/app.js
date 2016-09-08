@@ -5,7 +5,7 @@ function addEvent( elemenet,type,func){
         };
     } else if ( elemenet.attachEvent ) {
         addEvent = function(elemenet,type,func){
-            elemenet.addEventListener('on'+type,func,false);} 
+            elemenet.attachEvent('on'+type,func,false);} 
     } else {
          addEvent =  function(elemenet,type,func){
             element['on'+type] =func;};

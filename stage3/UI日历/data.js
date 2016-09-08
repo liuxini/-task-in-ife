@@ -131,21 +131,21 @@ Calendar.prototype =  {
             }
             var e = e || window.event;
             var target = e.target || e.srcElement;
+            var index;
             if( target.nodeName.toLowerCase() ==='span') {
                 var allSpan = document.getElementsByClassName('day');
-                var index ;
                 if( that.multi ){
                     for( let i=56; i<98; i++ ) {
                         if( allSpan[i] === target ){
-                            var index = i ;
+                            index = i ;
                             break;
                         }
                     }
                     index -= 56;
                 } else {
-                    for( let i=7; i<42; i++ ) {
+                    for( let i=7; i<49; i++ ) {
                         if( allSpan[i] === target ){
-                            var index = i ;
+                            index = i ;
                             break;
                         }
                     }
