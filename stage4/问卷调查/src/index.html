@@ -44,7 +44,11 @@
                           <td>
                               <a v-link="{path: '/edit'}" ><button @click="operateqn($event)">编辑</button></a>
                               <button @click="setrm($index)">删除</button>
-                              <a v-link="{path: '/stastic'}" ><button @click="operateqn($event)">参看数据</button></a>
+<<<<<<< HEAD
+                              <a v-if="item.status==='发布中'" v-link="{path: '/stastic'}" ><button @click="operateqn($event)">参看数据</button></a>
+=======
+                              <a  v-if="item.status==='发布中'" v-link="{path: '/stastic'}" ><button @click="operateqn($event)">参看数据</button></a>
+>>>>>>> e3f59974144e0860bea9ddec13aefd824491f05a
                         </td>                                    
                     </tr>             
                 </tbody>
