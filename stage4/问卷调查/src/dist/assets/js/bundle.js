@@ -17,6 +17,7 @@ var Calendar = function(container){
 
     this.date = new Date();
     this.mainDiv = null;
+    this.calendarEle = null;
     this.week = ['Su','Mo','Tu','We','Th','Fr','Sa'];
     this.init();
 };
@@ -115,6 +116,7 @@ Calendar.prototype.init =  function () {
         calendarEle.style.fontFamily = 'Microsoft YaHei';
         calendarEle.style.display='none';
         mainDiv.appendChild(calendarEle);
+        this.calendarEle = calendarEle;
 
         var title = document.createElement('div');
         var years = document.createElement('span');
@@ -235,6 +237,7 @@ Calendar.prototype.init =  function () {
                 that.date = dat;
                 if ( target.className.toLowerCase() ==="day" ) {
                     input.value =   that.getSelectedDate();
+                    that.calendarEle.style.display='none';
                 } else{
                     that.selectDate(dat);
                 }
@@ -277,8 +280,7 @@ p.push(Z,g(((z-R)*P+k)*S-T),w,g(((E-N)*D+L)*S-T),w,g(((z+R)*P+k)*S-T),w,g(((E+N)
 
   var calendar = new Calendar();
   var calendarEle = $('.calendarEle');
-
-
+ 
   var homePage = Vue.extend ({
     template: "#index",
 
@@ -289,7 +291,6 @@ p.push(Z,g(((z-R)*P+k)*S-T),w,g(((E-N)*D+L)*S-T),w,g(((z+R)*P+k)*S-T),w,g(((E+N)
         qtlist: store.qtlist,
       };
     },
-
     methods: {
       setrm: function(index) {
         this.rmindex = index;
@@ -457,7 +458,7 @@ p.push(Z,g(((z-R)*P+k)*S-T),w,g(((E-N)*D+L)*S-T),w,g(((z+R)*P+k)*S-T),w,g(((E+N)
         },
 
         setDeadline: function() {
-            if ( calendarEle.css("display") ==='none' ) {
+            if ( calendarEle.css("display") ==='none' ) {               
                 calendarEle.css( "display", "block") ;
                 calendarEle.css("left", "18.4em") ;
                 calendarEle.css("top", "-6.6em") ;
@@ -468,6 +469,7 @@ p.push(Z,g(((z-R)*P+k)*S-T),w,g(((E-N)*D+L)*S-T),w,g(((z+R)*P+k)*S-T),w,g(((E+N)
 
         store: function() {
           this.storeqn = true;
+           calendarEle.css( "display", "none") ;
           if( this.raw ) {
             var qn = $.extend(true, {}, this.qn);          
             store.qtlist.push(qn);              
@@ -489,6 +491,7 @@ p.push(Z,g(((z-R)*P+k)*S-T),w,g(((E-N)*D+L)*S-T),w,g(((z+R)*P+k)*S-T),w,g(((E+N)
 
          release: function() {
             this.releaseqn = false;
+             calendarEle.css( "display", "none") ;
             this.qn.status = "发布中";
             if( this.raw ) {
               var qn = $.extend(true, {}, this.qn);              

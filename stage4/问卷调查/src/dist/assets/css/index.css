@@ -89,7 +89,15 @@ header .subtitle a {
 .focus {
   background-color: #e67114;
   color: #ffffff; }
-
+.mainDiv{
+   z-index: 2;
+}
+.calendarEle{
+  z-index: 2;
+}
+.day{
+  background-color: #ffffff;
+}
 button {
   width: 6em;
   height: 2em;
