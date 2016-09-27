@@ -1,0 +1,26 @@
+html, body{
+     height: 100%;
+     position: relative;
+     margin: 0;
+     overflow: hidden;
+     -webkit-user-select:none;
+}
+@media screen and (min-width: 1024px) {
+    .contant-wrapper{
+        width: 360px;
+        height: 600px;
+        margin: 20px auto;
+        background-color: #FFDDAA ;
+    }
+}
+canvas{
+    width:100%;
+    height:100%;
+}
+.contant-wrapper{
+    /*height: 600px;
+    width:300px;*/
+    background-color: #FFDDAA ;
+    position: relative;
+    overflow: hidden;
+}

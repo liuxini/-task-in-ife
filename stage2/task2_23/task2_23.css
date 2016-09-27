@@ -1,0 +1,59 @@
+﻿thead t{border: 0;}
+table{
+  border-collapse: collapse; 
+}
+tr{ height: 40px; }
+th{width: 40px;}
+td{
+  width: 40px;
+  border: 1px solid #000;
+  text-align: center;
+}
+tr td:first-child{
+  border:0;
+  font-weight: bold;
+}
+
+.order{
+  margin: 20px 50px;
+}
+#tbody{position: relative;}
+#bottom{
+  background-color: red;
+  border-top: 8px solid blue;
+  position: absolute;
+  /*top:210px;left: 224px;*/
+  top:50px;left:52px;
+  width: 39px;height: 29px;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+#line{
+  width: 20px;height: 155px;
+  background-color: #DCDCDC;
+  display: inline-block;
+  position: absolute;
+  top:10px;
+  overflow: hidden;
+}
+#line .linenum:first-child{
+  margin-top:3px; 
+}
+.incontrol{
+  margin: 10px 0;
+  position: relative;
+  color: #fff;
+}
+textarea{
+  width: 400px;height: 150px;
+  background-color: #000;
+  color:#008B45 ;font-size: 16px;
+  margin: 10px 0;
+  position: absolute;
+  left: 20px;
+}
+.linenum{
+  font-size: 16px;
+  text-align: center; 
+}

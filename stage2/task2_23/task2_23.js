@@ -21,18 +21,42 @@ function addEvent( type, element, fun){
     str += "<tr><td>"+i+"</td><td></td><td></td><td></td><td></td>"
                       +"<td></td><td></td><td></td><td></td><td></td><td></td>";
   };
-  table.innerHTML=str;
+  table.innerHTML=str; 
 })();
 
 (function(){
   var mymove = document.getElementById("bottom");
   var input = document.getElementById('input');
   var btn = document.getElementById('button');
-  mymove.style.top = "210px";
+  var refress = document.getElementById('refress');
+  var line =document.getElementById('line');
+   mymove.style.top = "210px";
   mymove.style.left = "224px";
+  addEvent("click",refress,function(){
+     mymove.style.top = "210px";
+     mymove.style.left = "224px";
+     input.innerHTML="";
+     line.innerHTML="";
+  });
+
   addEvent("click",btn,order);
+  addEvent("keyup",input,rownum);
+  addEvent("scroll",input,function(){
+    var temp = input.scrollTop;
+    line.scrollTop =temp;  
+  });
+  function rownum(){
+    var list = input.value.split("\n");
+    var arr = " ";
+    for( var i=0;i<list.length;i++){
+      arr +="<div class='linenum'>" + (i + 1) + "</div>";
+    }
+    line.innerHTML = arr;
+    var temp = input.scrollTop;
+   line.scrollTop =temp;  
+  }
   var move = {
-   turn:0,
+    turn:0,
     tunlef:function(){
       --this.turn;
       mymove.style.transform = "rotate(" + this.turn * 90 + "deg)";
@@ -68,17 +92,17 @@ function addEvent( type, element, fun){
       }
     },
     goLeft: function() {
-      if (parseInt( mymove.style.left) > 0) {
+      if (parseInt( mymove.style.left) > 52) {
          mymove.style.left = (parseInt( mymove.style.left) - 43) + 'px';
       }
     },
     goRight: function() {
-      if (parseInt( mymove.style.left) < 360) {
+      if (parseInt( mymove.style.left) < 412) {
          mymove.style.left = (parseInt( mymove.style.left) + 43) + 'px';
       }
     },
     goTop: function() {
-      if (parseInt( mymove.style.top) > 0) {
+      if (parseInt( mymove.style.top) > 50) {
          mymove.style.top = (parseInt( mymove.style.top) - 40) + 'px';
       }
     },
@@ -107,51 +131,120 @@ function addEvent( type, element, fun){
       this.goBack();
       this.turn = 2;
     }
-  }
+  };
   
-function order(){
-  switch( input.value.trim().toLowerCase()){
+  function order(){
+    var orderlist = input.value.split("\n");
+    var temp = orderlist[0].split(" ");
+    if( !isNaN(temp[temp.length-1])){
+        var num = temp[temp.length-1];
+        temp.pop();
+        orderlist[0] = temp.join(" ");
+        run(orderlist[0],num,0);
+      }else{
+         run(orderlist[0],1,0);
+      }
+    //   for( var i=1;i<orderlist.length;i++){
+    //     let j =i ;
+    //     setTimeout( function(){
+    //       var temp = orderlist[j].split(" ");
+    //       if( !isNaN(temp[temp.length-1])){
+    //         var num = temp[temp.length-1];
+    //         temp.pop();
+    //         orderlist[j] = temp.join(" ");
+
+    //         run(orderlist[j],num,j);
+    //       }else{
+    //            run(orderlist[j],1,j);
+    //       }  
+    //   },500*j);
+    // }  
+    var i=0;
+     var timer = setInterval(function(){
+       i++;
+       if( i<orderlist.length){
+        var temp = orderlist[i].split(" ");
+          if( !isNaN(temp[temp.length-1])){
+            var num = temp[temp.length-1];
+            temp.pop();
+            orderlist[i] = temp.join(" ");
+
+            run(orderlist[i],num,i);
+          }else{
+               run(orderlist[i],1,i);
+          } 
+         }else{
+           clearInterval(timer);
+         }
+     },500);
+  }
+
+  function run(str,num,j){
+    switch( str.toLowerCase()){
     case 'go':
-      move.go();
+      for(var i=0; i<num; i++){
+        move.go();
+      }
       break;
     case 'tun lef':
-      move.tunlef();
+      for(var i=0; i<num; i++){
+        move.tunlef();
+      }
       break;
     case 'tun rig':
-      move.tunrig();
+      for(var i=0; i<num; i++){
+        move.tunrig();
+      }
     break;
     case 'tun bac':
-      move.tunbac();
+      for(var i=0; i<num; i++){
+        move.tunbac();
+      }
     break;
     case 'tra lef':
-      move.goLeft();
-    break;
+      for(var i=0; i<num; i++){
+        move.goLeft();
+      }
+      break;
     case 'tra top':
-      move.goTop();
-    break;
+      for(var i=0; i<num; i++){
+        move.goTop();
+      }
+      break;
     case 'tra rig':
-      move.goRight();
-    break;
+      for(var i=0; i<num; i++){
+        move.goRight();
+      }
+      break;
     case 'tra bot':
-      move.goBack();
-    break;
+      for(var i=0; i<num; i++){
+        move.goBack();
+      }
+      break;
     case 'mov lef':
-      move.movLeft();
-    break;
+      for(var i=0; i<num; i++){
+        move.movLeft();
+      }
+      break;
     case 'mov top':
-      move.movTop();
-    break;
+      for(var i=0; i<num; i++){
+        move.movTop();
+      }
+      break;
     case 'mov rig':
-      move.movRight();
-    break;
+      for(var i=0; i<num; i++){
+        move.movRight();
+      }
+      break;
     case 'mov bot':
-      move.movBottom();
-    break;
+      for(var i=0; i<num; i++){
+        move.movBottom();
+      }
+      break;
     default:
-      alert("error input");
+      var err = line.getElementsByTagName('div');
+      err[j].style.backgroundColor = "red";
     }
   }
+
 })();
-
-
-

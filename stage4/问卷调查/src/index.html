@@ -1,0 +1,188 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta describe = '百度前端技术学院题目'>
+    <title>问卷调查</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link rel="stylesheet" type="text/css" href="dist/assets/css/index.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <span class="title">问卷调查</span>
+            <span class="subtitle"><a v-link="{path: '/index'}">我的问卷</a></span>
+          </nav>
+      </header>
+       <script type="text/x-template" id="index">
+        <div>
+            <div class="home_wrap" v-show="!qtlist.length">
+              <div class="additem">
+                  <a v-link="{path: '/edit'}"><span class="add_item">新建问卷</span></a>             
+              </div>
+            </div> 
+
+            <table class="qnlist" v-show="qtlist.length">
+                <thead>
+                    <tr>
+                        <th>标题</th>
+                        <th>时间</th>
+                        <th>状态</th>
+                        <th>
+                            <div>
+                                <span>操作</span>
+                                <a  v-link="{path: '/edit'}"><button >新建问卷</button></a>
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="item in qtlist" track-by="$index">
+                        <td><span>{{item.title}}</span></td>
+                        <td><span>{{item.deadline}}</span></td>
+                         <td> <span>{{item.status}}</span></td>
+                          <td>
+                              <a v-link="{path: '/edit'}" ><button @click="operateqn($event)">编辑</button></a>
+                              <button @click="setrm($index)">删除</button>
+                              <a v-link="{path: '/stastic'}" ><button @click="operateqn($event)">参看数据</button></a>
+                        </td>                                    
+                    </tr>             
+                </tbody>
+            </table>         
+                  <modal :show.sync="isdelete">
+                      <p slot="content">是否删除该问卷</p>
+                      <div class="btns" slot="btns">
+                        <button @click="removeitem()">确定</button>
+                        <button @click="isdelete = false">取消</button>
+                      </div>
+                  </modal>   
+          </div>
+        </script>
+
+        <script type="text/x-template" id="edit">
+           <div class="edit_qn">
+              <div class="qn_head" @click="setTitle">{{qn.title}}</div>
+              <hr>
+              <div class="qtlist" v-if="qn.qtlist.length">
+                  <div v-for="que in qn.qtlist" track-by="$index">
+                      <div class="qt_item">
+                           <div class="qt_caption">
+                            <span>Q{{$index+1}}</span>
+                            <div class="qt_caption_content" @click="setQtTitle($index)">{{que.title}}</div>
+                          </div>  
+                         <div class="options">
+                            <div v-if="que.type=='textarea' ">
+                                <div><textarea name="qn_text" ></textarea></div>
+                                <div class="qt_edit_require">
+                                  <input type="checkbox" name="edit_require">
+                                  <span>此题是否必填</span>
+                                </div>                             
+                            </div>
+                            <div v-else>
+                                <div class="opitem" v-for=" option in que.options" track-by="$index">
+                                    <input type={{que.type}} name="option_item" ><span class="optionContent"@click.stop.prevent="setContent($event,$index, que)">{{option}}</span>
+                                        <span class="removeop" @click="removeOp(que,$index)">x</span>
+                                </div>
+                              <div class="add_qt" @click="addOption(que.options)"></div> 
+                              </div>
+                           </div>         
+                            <div class="qt_edit">
+                               <div class="edit_opration" v-if=" $index>0"><span @click="upQt($index)">上移</span></div>               
+                              <div class="edit_opration" v-if=" $index < qn.qtlist.length-1"><span @click="downQt($index)">下移</span></div>               
+                              <div class="edit_opration"><span @click="reuseQt($index)">复用</span></div>               
+                              <div class="edit_opration"><span @click="removeQt($index)">删除</span></div>               
+                            </div>
+                      </div>
+                  </div>
+              </div>
+              <div class="add_qn_wrap">
+                   <div class="qt_type" v-show="choose_type" transition="dur">
+                       <div class="qt_type_choose" @click="addQt(0)">单选</div>
+                      <div class="qt_type_choose" @click="addQt(1)">多选</div>
+                       <div class="qt_type_choose" @click="addQt(2)">文本</div>
+                   </div>
+                  <div class="add_qn" @click="choose_type = !choose_type">             
+                    <span >添加问题</span>
+                  </div>
+              </div>
+               <hr>
+              <div class="edit_qn_footer">
+                <div class="deadline">
+                    <span>问卷截止日期</span>
+                    <input type="text" class="showD" readonly="true" @click="setDeadline" v-model="qn.deadline">
+
+                  </div>
+                  <div class="footer_btns">
+                    <button @click="store">保存问卷</button>              
+                    <button @click="check">发布问卷</button>                  
+                  </div>
+                  <modal :show.sync="storeqn">
+                        <p slot="content">问卷已保存</p>
+                        <div class="btns" slot="btns">
+                          <a v-link="{path: '/index'}"><button @click="storeqn = false">确定</button></a>
+                        </div>
+                    </modal>
+                     <modal :show.sync="releaseStatus">
+                        <p slot="content">请设置合理的问卷内容</p>
+                        <div class="btns" slot="btns">
+                          <button @click="releaseStatus = false">确定</button></a>
+                        </div>
+                    </modal>
+                    <modal :show.sync="releaseqn">
+                        <p slot="content">是否发布该问卷<br>截止时间为{{qn.deadline}}</p>
+                        <div class="btns" slot="btns">
+                          <a v-link="{path: '/index'}"><button @click="release">确定</button></a>
+                          <button @click="releaseqn = false">取消</button></a>
+                        </div>
+                    </modal>
+              </div>
+           </div> 
+       </script>
+
+      <script type="text/x-template" id="qnstastic">
+            <div class="statistic">
+              <div class="stastic_head">
+                  <span class="back"><a v-link="{path: '/index'}">返回</a></span>
+                  <div class="qn_head">
+                    <div>{{qn.title}}</div>
+                    <div class="stastic_subtitle">此统计分析只包含完整回收的所数据</div>
+                  </div>
+              </div>
+              <hr>
+              <div class="qtlist">
+                <div class="stastic_item">             
+                </div>
+              <div class="qtlist_footer">
+                  <a v-link="{path: '/index'}"><button>返回</button></a>
+              </div>
+           </div> 
+           </script>
+          <script type="text/x-template" id="prompt">
+           <div class="dialog" v-show="show" >
+          <div class="mask"></div>
+           <div class="pop_ups">
+                <div class="pop_head">
+                    <span class="pop_head_title">提示</span>
+                    <span class="pop_head_close" @click ="show=false"></span>
+                </div>
+                <div class="pop_content">
+                    <div class="pop_mian_content" >
+                        <slot name="content"></slot>
+                    </div>
+                    <slot name="btns">
+                    </slot>          
+              </div>
+          </div>
+    </div>  
+  </script>
+
+      <main id="main-container">
+        <router-view></router-view>
+	</main>
+
+    <script src="dist/assets/static/vue.js" type="text/javascript"></script> 
+    <script src="dist/assets/static/vue-router.js" type="text/javascript"></script> 
+    <script src="dist/assets/static/jquery-3.1.0.min.js" type="text/javascript"></script> 
+    <script src="dist/assets/js/bundle.js" type="text/javascript"></script> 
+</body>
+</html>

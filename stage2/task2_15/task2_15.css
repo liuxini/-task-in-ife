@@ -8,42 +8,7 @@ body{
   width: 98%; 
   margin: 0 auto;
 }
-/*.show{
-  position: relative;
-  width: 100%;height: 400px;
-}
-.center{
-  position: absolute;
-  top:50%;left: 50%;
-  -webkit-transform:translate3d(-50%, -50%, 0);
-      transform:translate3d(-50%, -50%, 0);
-  width: 80px;height: 80px;
-  background-color: blue;
-  border-radius: 40px;
-}
-[id^="center"]{
-  position: absolute;
-  top:50%;left: 50%;
-  -webkit-transform:translate3d(-50%, -50%, 0);
-      transform:translate3d(-50%, -50%, 0);
-   border:1px solid blue;
-}
-#center0{
-  width: 140px;height: 140px;
- border-radius: 70px;
-}
-#center1{
-  width: 200px;height: 200px;
-  border-radius: 100px;
-}
-#center2{
-  width: 260px;height: 260px;
-  border-radius: 130px;
-}
-#center3{
-  width: 320px;height: 320px;
-  border-radius: 160px;
-}*/
+
 #canvas{ 
   margin: 0 100px;
  }
@@ -88,3 +53,42 @@ body{
 .error{
   color: red;
 }
+
+.choose{
+  position: absolute;
+  top:50%;left: 50%;
+  -webkit-transform: translate(-50%,-50%); 
+      -ms-transform: translate(-50%,-50%); 
+          transform:translate(-50%,-50%);
+  width: 500px;height: 270px;
+  background-color: green;
+  display: none;
+}
+.choose input{
+  display: inline-block;
+  margin-left: 70px;
+}
+.choose p{
+  font-size: 13px;
+  margin: 8px;
+}
+.type,.energy{
+  padding-left:50px;
+  font-size: 14px; 
+}
+.button{
+  position: absolute;
+  top:83%;left: 50%;
+  -webkit-transform: translateX(-50%); 
+      -ms-transform: translateX(-50%); 
+          transform:translateX(-50%);
+}
+button{
+  width: 70px; height: 25px;
+  border: 1px solid #fff;
+  background-color: green;
+  color: #fff;
+  margin-left:15px; 
+}
+
+ 

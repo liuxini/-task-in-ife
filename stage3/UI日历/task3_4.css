@@ -1,0 +1,10 @@
+body{
+    height: 1000px;
+}
+
+.show{
+    margin:40px 0 0 40px;
+}
+input{
+    width: 250px;height: 25px;
+}

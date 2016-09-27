@@ -1,0 +1,113 @@
+body{
+  width: 100%;
+  color: #fff;
+  background-color: #000;
+  min-width: 1240px;
+}
+.wrapper{ 
+  width: 98%; 
+  margin: 0 auto;
+}
+.flightstatus{ float: right;}
+.flightstatus table{ border-collapse: collapse; }
+.flightstatus thead{
+  background: gray;
+  color: #000;
+  font-size: 14px;
+}
+.flightstatus tr, td{
+  border: 1px solid gray;
+  text-align: center;
+  padding: 8px;
+}
+.flightstatus tr{ height: 30px; }
+.flightstatus th{ padding: 8px;}
+#canvas{ 
+  margin: 0 100px;
+ }
+.console{
+  width: 40%;height: 220px;
+  margin:0 80px;
+  border-radius: 10px;
+  border:1px solid #fff;
+}
+.wrapper h5{
+  width: 100px;
+  font-size: 15px;
+  margin: 10px auto;
+}
+.spaceship{
+  width: 80%;
+  margin: 0 auto;
+  font-size: 13px;
+}
+.spaceship > p{
+  display: inline-block;
+}
+.order{
+  display: inline-block;
+  width: 15%;height: 20px;
+  border: 1px solid #fff;
+  text-align: center;
+  line-height: 20px;
+  margin: 0 10px;
+}
+.terminallist{
+  float: right;
+  width: 40%;height: 220px;
+  margin-right: 80px;
+  border-radius: 10px;
+  border:1px solid #fff;
+}
+.terminal{
+  height: 180px;
+ overflow: auto;
+}
+.error{
+  color: red;
+}
+/*.terminallist , .console{
+   filter: alpha(opacity=15);  
+    background-color: rgb(256, 256, 256);  
+      
+    background-color: rgba(256, 256, 256, 0.15);   
+}*/
+
+.choose{
+  position: absolute;
+  top:50%;left: 50%;
+  -webkit-transform: translate(-50%,-50%); 
+      -ms-transform: translate(-50%,-50%); 
+          transform:translate(-50%,-50%);
+  width: 500px;height: 270px;
+  background-color: green;
+  display: none;
+}
+.choose input{
+  display: inline-block;
+  margin-left: 70px;
+}
+.choose p{
+  font-size: 13px;
+  margin: 8px;
+}
+.type,.energy{
+  padding-left:50px;
+  font-size: 14px; 
+}
+.button{
+  position: absolute;
+  top:83%;left: 50%;
+  -webkit-transform: translateX(-50%); 
+      -ms-transform: translateX(-50%); 
+          transform:translateX(-50%);
+}
+button{
+  width: 70px; height: 25px;
+  border: 1px solid #fff;
+  background-color: green;
+  color: #fff;
+  margin-left:15px; 
+}
+
+ 

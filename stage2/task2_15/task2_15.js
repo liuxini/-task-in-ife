@@ -1,4 +1,4 @@
-function addEvent( type, element, fun){
+﻿function addEvent( type, element, fun){
   if(element.addEventListener){
     addEvent = function(type, element, fun){
       element.addEventListener(type,fun,false);};
@@ -11,13 +11,21 @@ function addEvent( type, element, fun){
       element['on'+type] =fun;};
   }
   return addEvent(type,element,fun);
-}
+};
+
+function removeEvent(type,target, func){ 
+    if (target.removeEventListener) 
+        target.removeEventListener(type, func, false); 
+    else if (target.detachEvent) 
+        target.detachEvent("on" + type, func); 
+    else target["on" + type] = null; 
+};  
 
 function getTime(){
   var date = new Date();
   var year = ("0000" + date.getFullYear()).substr(-4),
-      month = ("00" + (date.getMonth() + 1)).substr(-2),
-      day = ("00" + date.getDay()).substr(-2),
+      month = ("00" + (date.getMonth() + 1)).substr(-2);
+      day = ("00" + date.getDate()).substr(-2),
       hour = ("00" + date.getHours()).substr(-2),
       minute = ("00" + date.getMinutes()).substr(-2),
       second = ("00" + date.getSeconds()).substr(-2);
@@ -29,6 +37,11 @@ var terminal = document.querySelector(".terminal");
 var cmdAirshipArr = [{}, {}, {}, {}];
 var canvas = document.getElementById('canvas');
 var context = canvas.getContext("2d");
+//存放动力系统的值
+var powerArr = [[1, 5], [2, 7], [3, 9]];
+//存放能源系统的值
+var energyArr = [2, 3, 4];
+
 
 var planet = {
   drawSelf:function(){
@@ -61,15 +74,15 @@ var planet = {
       var command = order.getAttribute("id");
       var parent = order.parentNode;
       var orbittemp = parent.getAttribute("id");
-
+       var orbit ;
       if(orbittemp==='one'){
-        var orbit = 0;
+          orbit = 0;
       }else if( orbittemp==='two'){
-        var orbit =1;
+          orbit =1;
       }else if ( orbittemp === 'three' ){
-        var orbit =2;
+          orbit =2;
       }else if( orbittemp === 'four'){
-        var orbit =3;
+          orbit =3;
       }
       sendfn( orbit,command);
     }
@@ -83,15 +96,48 @@ function sendfn(orbit,command){
 
   if( command ==='create' ){
     cmdAirshipArr[orbit].order = 'create';
+    var choose = document.querySelector(".choose");
+    choose.style.display = "block";
     cmdAirshipArr[orbit].dynamical = 3;
     cmdAirshipArr[orbit].useEnergy = 5 ;
     cmdAirshipArr[orbit].energy = 2;
-  } else {
-      cmdAirshipArr[orbit].order = command;
-  }
-  commander.send(cmdAirshipArr[orbit]);
-}
+    var btns = document.querySelector(".button");
 
+    addEvent("click",btns,create);
+    
+  } else {
+
+      cmdAirshipArr[orbit].order = command;
+      commander.send(cmdAirshipArr[orbit]);
+  }
+
+  function create(ev){
+      var e = ev||window.event;
+      var order = e.target||e.srcElement;
+
+      if( order.id.toLowerCase()==='yes'){
+         var powers = document.getElementsByName("vtype");
+         var energys = document.getElementsByName('energytype');
+
+          for (var i = 0; i < 3; i ++) {
+              if (powers[i].checked) {
+                  //设置为选中的动力配置
+                  cmdAirshipArr[orbit].dynamical = powerArr[i][0];
+                  cmdAirshipArr[orbit].useEnergy = powerArr[i][1];
+              }
+              if (energys[i].checked) {
+                  //设置为选中的能源配置
+                  cmdAirshipArr[orbit].energy = energyArr[i];
+              }
+          }
+           
+          commander.send(cmdAirshipArr[orbit]);
+        }
+          choose.style.display = "none";
+          removeEvent("click",btns, create);
+  }
+
+}
 
 var spaceshiplist=[0,0,0,0];
 function spaceship (user) {
@@ -114,8 +160,30 @@ function spaceship (user) {
     this.isBoom = false;
     this.frameNum = 0;
 
+    this.dispose = function(user){
+      if( user.order.indexOf('1')>3){
+        alert("some error happened");
+      }else{
+        user.id = user.order.indexOf('1',0);
+        switch(user.order.substr(4)){
+          case '00':user.order='create';
+          break;
+
+          case '01':user.order='fly';
+          break;
+
+          case '10':user.order = 'stop';
+          break;
+
+          case '11':user.order = 'destroy';
+          break;
+        }
+      }
+
+    }
   
     this.receive = function(user){
+      this.dispose(user);
        var isMe = false;
         for (var i = 0, len = spaceshiplist.length; i < len; i++) {
             //遍历判断自己是不是接受者
@@ -230,9 +298,7 @@ function animation(){
        case "fly":
        if( this.status.flightstatus[user.id]=== 0){
           terminal.innerHTML += "<p class='error'>"+getTime()+" 该飞船不存在</p>";
-       }else if( this.status.isfly[user.id]=== 1){
-          terminal.innerHTML += "<p class='error'>"+getTime()+" 该飞船已在飞行</p>";
-        }else{
+       }else{
           this.status.isfly[user.id] =1;
           terminal.innerHTML += "<p>"+getTime()+" "+(user.id+1)+"号飞船开始飞行</p>";
         }        
@@ -241,9 +307,7 @@ function animation(){
        case "stop":
         if( this.status.flightstatus[user.id]=== 0){
           terminal.innerHTML += "<p class='error'>"+getTime()+" 该飞船不存在</p>";
-       }else if( this.status.isfly[user.id]=== 0){ 
-          terminal.innerHTML +="<p class='error'>"+getTime()+" 该飞船已在停止</p>";
-        }else{
+       }else{
           this.status.isfly[user.id]=0;
           terminal.innerHTML += "<p>"+getTime()+" "+(user.id+1)+"号飞船停止</p>";
         }
@@ -261,22 +325,49 @@ function animation(){
      }
 
      if( user.order!=="create"){
-         mediator(user);    
+         Bus.change(user);    
+         Bus.sendorder(user);
      }
    }
  }
 
-function mediator(user){
-  setTimeout( function(){
-    if( Math.random() <= 0.3){
-      terminal.lastElementChild.setAttribute("class","error");
+//function Bus(user){
+var Bus = {
+  change:function(user){
+    var temp = [0,0,0,0];
+    temp[user.id]=1;
+    temp = temp.join('');
+    switch(user.order){
+      case 'create': user.order = temp+'00';
+      break;
+
+      case 'fly':user.order = temp+'01';
+      break;
+
+      case 'stop':user.order = temp+'10';
+      break;
+
+      case 'destroy':user.order = temp+'11';
+      break;
     }
-    else{
-      for (var i = 0, len = spaceshiplist.length; i < len; i++) {
-          if (typeof spaceshiplist[i] == 'object') {
-                spaceshiplist[i].receive(user);
+  },
+
+  sendorder:function(user){
+    setTimeout( function(){
+        if( Math.random() <= 0.9 && user.order.substr(4)!=="00" ){
+           Bus.sendorder(user);
+          terminal.innerHTML += "<p class='error'>"+getTime()+" "+"传播失败,再次传播中,指令"
+                                +user.order+"</p>";
+         
+        }
+        else{
+          for (var i = 0, len = spaceshiplist.length; i < len; i++) {
+              if (typeof spaceshiplist[i] == 'object') {
+                    spaceshiplist[i].receive(user);
+                    Bus.change(user); 
+              }
           }
-      }
-   }
-  },1000);
+       }
+      },300);
+  }
 }

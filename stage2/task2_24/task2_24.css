@@ -1,0 +1,79 @@
+﻿#wrapper{
+  position: relative;
+  width: 1200px;
+  font-family: "Microsoft Yahei";
+  font-size: 14px;color: #777;
+  margin: 0 auto;
+}
+#wrapper:after {
+    content: '';
+    display: block;
+    clear: both;
+  }
+.show{
+  float: left;
+  top: 40px;left: 100px;
+}
+thead t{border: 0;}
+table{
+  border-collapse: collapse; 
+}
+tr{ height: 40px; }
+th{width: 38px;}
+td{
+  border: 1px solid #777;
+  box-sizing:border-box;
+-moz-box-sizing:border-box; /* Firefox */
+-webkit-box-sizing:border-box;
+  text-align: center;
+}
+.block{background-color: #777;}
+tr td:first-child{
+  border:0;
+  font-weight: bold;
+}
+
+.order{ float: right; }
+.incontrol{
+  font-size: 0;
+}
+#tbody{position: relative;}
+#bottom{
+  background-color: red;
+  border-top: 8px solid blue;
+  position: absolute;
+  top:50px;left:52px;
+  width: 40px;height: 32px;
+  transition: 0.5s all;
+  -webkit-transition: 0.5s all;
+  -ms-transition: 0.5s all;
+}
+#line{
+  width: 40px;height: 600px;
+  background-color: #363636;
+  margin-top: 5px;
+  vertical-align: top;
+  display: inline-block;
+  overflow: hidden;
+}
+
+.btnlist{
+  margin: 8px 20px 2px 20px;
+}
+button{
+  width:70px ;height: 25px;
+  background-color: #607B8B;
+  color: #fff;border: 0;
+}
+textarea{
+  width: 400px;height: 600px;
+  background-color: #4F4F4F;
+  color:#fff ;font-size: 18px;
+  margin: 5px 0; padding: 0;
+  border: 0;
+}
+.linenum{
+  font-size: 16px;
+  text-align: center; 
+  color: #fff;
+}
